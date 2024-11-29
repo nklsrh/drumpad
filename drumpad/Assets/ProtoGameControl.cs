@@ -30,4 +30,9 @@ public class ProtoGameControl : MonoBehaviour
         
         panelComplete.SetActive(true);
     }
+
+    public void InsertBtnHere(ProtoBtnClipDragUI btn, ProtoBtnClipPlay insertBefore)
+    {
+        AudioClipControl.InsertBtnHere(btn, insertBefore);
+    }
 }

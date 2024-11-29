@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ProtoBtnClipUI : MonoBehaviour
@@ -22,8 +23,8 @@ public class ProtoBtnClipUI : MonoBehaviour
 
     void SetColor()
     {
-        btnImg.color = btn.isClipPlaying ? Color.white : (btn.IsStarter ? colorStarter : colorStandard);
-        btnText.text = btn.isClipPlaying ? "||" : (btn.IsStarter ? "START" : ">");
+        btnImg.color = btn.Data.isHovering ? Color.black : (btn.isClipPlaying ? Color.white : (btn.IsStarter ? colorStarter : colorStandard));
+        btnText.text = btn.isClipPlaying ? "||" : (btn.IsStarter ? "START" : "" + btn.Data.index + "/" + btn.Data.actualIndex);
     }
     private void OnPlay()
     {

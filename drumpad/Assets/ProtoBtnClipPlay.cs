@@ -20,7 +20,15 @@ public class ProtoBtnClipPlay : MonoBehaviour
     private int actualIndex;
     public StructBtnData Data;
 
-    public bool IsStarter { get; private set; }
+    public bool AllowPlayerDragOut
+    {
+        get { return !Data.disableDrag; }
+    }
+
+    public bool IsStarter
+    {
+        get { return Data.actualIndex == 0; }
+    }
     
     public static event Action<StructClipPlayed> OnClipPlayed;
 
@@ -44,10 +52,6 @@ public class ProtoBtnClipPlay : MonoBehaviour
         source.clip = Data.clip;
         index = Data.index;
         actualIndex = Data.actualIndex;
-        if (actualIndex == 0)
-        {
-            SetStarter();
-        }
         SetEnabled(true);
     }
 
@@ -82,11 +86,6 @@ public class ProtoBtnClipPlay : MonoBehaviour
         {
             isClipPlaying = false;
         }
-    }
-
-    public void SetStarter()
-    {
-        IsStarter = true;
     }
 
     public void SetEnabled(bool e)

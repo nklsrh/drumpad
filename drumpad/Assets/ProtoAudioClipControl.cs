@@ -48,21 +48,19 @@ public class ProtoAudioClipControl : MonoBehaviour
         for (int i = 0; i < btns.Length; i++)
         {
             int randomIndexValue = randomIndex[i];
-            btns[randomIndexValue].gameObject.SetActive(true);
-            btns[randomIndexValue].SetData(new StructBtnData()
-            {
-                index = randomIndexValue,
-                actualIndex = i,
-                clip = clips[i],
-            });
-            btns[randomIndexValue].SetAction(PlaySound);
-            if (i == 0)
-            {
-                btns[randomIndexValue].Play();
-                PlaySound(randomIndexValue);
-                // AddClipToSequence(randomIndexValue);
-                // btns[randomIndexValue].gameObject.SetActive(false);
-            }
+            AddClipToSequence(randomIndexValue);
+        }
+
+        SetButtons();
+    }
+
+    void SetButtons()
+    {
+        for (int i = 0; i < btns.Length; i++)
+        {
+            btns[i].gameObject.SetActive(true);
+            btns[i].SetData(sequence[i]);
+            btns[i].SetAction(PlaySound);
         }
     }
 
@@ -70,10 +68,6 @@ public class ProtoAudioClipControl : MonoBehaviour
     {
         if (isPlaying)
         {
-            // if (index == indexPlaying)
-            // {
-            //     AddClipToSequence(index);
-            // }
             btns[indexPlaying].Stop();
         }
 
@@ -82,17 +76,14 @@ public class ProtoAudioClipControl : MonoBehaviour
         isPlaying = true;
     }
 
-    private void AddClipToSequence(int index)
+    private void AddClipToSequence(int randomIndex)
     {
-        btns[index].SetEnabled(false);
-        OnAddClipSequence(new StructAddClipSequence()
+        sequence.Add(new StructBtnData()
         {
-            index = index,
-            data = btns[index].Data
+            index = sequence.Count,
+            actualIndex = randomIndex,
+            clip = clips[randomIndex],
         });
-        sequence.Add(btns[index].Data);
-
-        CheckComplete();
     }
 
     void CheckComplete()
@@ -170,6 +161,34 @@ public class ProtoAudioClipControl : MonoBehaviour
             }
         }
     }
+
+    public void InsertBtnHere(ProtoBtnClipDragUI btn, ProtoBtnClipPlay insertBefore)
+    {
+        var newIndex = insertBefore.Data.index;
+        var oldItemIndex = btn.btn.Data.index;
+        
+        // move the actual data around in the sequence
+        var item = sequence[oldItemIndex];
+        sequence.RemoveAt(oldItemIndex);
+        sequence.Insert(newIndex, item);
+
+        // update the index of each item in the sequence
+        for (int i = 0; i < sequence.Count; i++)
+        {
+            sequence[i] = new StructBtnData()
+            {
+                index = i,
+                actualIndex = sequence[i].actualIndex,
+                clip = sequence[i].clip,
+            };
+        }
+        
+        // then populate the same butttons with the new order
+        SetButtons();
+        //
+        // // move the button to the correct position
+        // btn.transform.SetSiblingIndex(prevIndex);
+    }
 }
 
 public struct StructBtnData
@@ -177,6 +196,8 @@ public struct StructBtnData
     public int index;
     public int actualIndex;
     public AudioClip clip;
+    public bool disableDrag;
+    public bool isHovering;
 }
 
 public struct StructAddClipSequence
