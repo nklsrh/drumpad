@@ -60,10 +60,19 @@ public class ProtoBtnClipPlay : MonoBehaviour
     {
         source.Play();
         isClipPlaying = true;
-        OnClipPlayed(new StructClipPlayed()
+        if (OnClipPlayed != null)
         {
-            index = this.index,
-        });
+            OnClipPlayed(new StructClipPlayed()
+            {
+                index = this.index,
+            });
+        }
+    }
+
+    public void Stop()
+    {
+        source.Stop();
+        isClipPlaying = false;
     }
     
     void Update()

@@ -23,7 +23,7 @@ public class ProtoBtnClipUI : MonoBehaviour
     void SetColor()
     {
         btnImg.color = btn.isClipPlaying ? Color.white : (btn.IsStarter ? colorStarter : colorStandard);
-        btnText.text = btn.isClipPlaying ? "ADD" : (btn.IsStarter ? "START" : "?");
+        btnText.text = btn.isClipPlaying ? "||" : (btn.IsStarter ? "START" : ">");
     }
     private void OnPlay()
     {
