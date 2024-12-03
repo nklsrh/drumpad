@@ -103,14 +103,17 @@ public class ProtoAudioClipControl : MonoBehaviour
             
             Debug.Log("Sequence iS " + (isCorrect ? "CORRECT!" : "INCORRECT!"));
 
-            List<AudioClip> playClips = new List<AudioClip>();
-            playClips.AddRange(sequence.Select(r=>r.clip));
             if (isCorrect)
             {
-                playClips.Add(finishClip);
+                List<AudioClip> playClips = new List<AudioClip>();
+                playClips.AddRange(sequence.Select(r=>r.clip));
+                if (isCorrect)
+                {
+                    playClips.Add(finishClip);
+                }
+                
+                StartCoroutine(playAudioSequentially(playClips, finishSource, isCorrect));
             }
-            
-            StartCoroutine(playAudioSequentially(playClips, finishSource, isCorrect));
         }
     }
     
@@ -118,29 +121,29 @@ public class ProtoAudioClipControl : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
 
-        OnComplete?.Invoke();
         //1.Loop through each AudioClip
-        // for (int i = 0; i < adClips.Count; i++)
-        // {
-        //     //2.Assign current AudioClip to audiosource
-        //     adSource.clip = adClips[i];
-        //
-        //     //3.Play Audio
-        //     adSource.Play();
-        //
-        //     //4.Wait for it to finish playing
-        //     while (adSource.isPlaying)
-        //     {
-        //         yield return null;
-        //     }
-        //
-        //     //5. Go back to #2 and play the next audio in the adClips array
-        //
-        //     if (isCorrect && i == adClips.Count - 2)
-        //     {
-        //         // panelComplete.SetActive(true);
-        //     }
-        // }
+        for (int i = 0; i < adClips.Count; i++)
+        {
+            //2.Assign current AudioClip to audiosource
+            adSource.clip = adClips[i];
+        
+            //3.Play Audio
+            adSource.Play();
+        
+            //4.Wait for it to finish playing
+            while (adSource.isPlaying)
+            {
+                yield return null;
+            }
+        
+            //5. Go back to #2 and play the next audio in the adClips array
+        
+            if (isCorrect && i == adClips.Count - 2)
+            {
+                // panelComplete.SetActive(true);
+                OnComplete?.Invoke();
+            }
+        }
     }
     
     // Update is called once per frame
@@ -188,6 +191,7 @@ public class ProtoAudioClipControl : MonoBehaviour
         //
         // // move the button to the correct position
         // btn.transform.SetSiblingIndex(prevIndex);
+        CheckComplete();
     }
 }
 

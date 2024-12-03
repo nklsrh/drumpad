@@ -2685,7 +2685,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelStart: {fileID: 178302241}
   panelComplete: {fileID: 984704621}
-  AudioClipControl: {fileID: 519142164}
+  AudioClipControl: {fileID: 804398839}
 --- !u!4 &1111451047
 Transform:
   m_ObjectHideFlags: 0

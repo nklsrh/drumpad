@@ -75,3 +75,5 @@ crashlytics-build.properties
 /drumpad/obj
 /drumpad/Logs
 /drumpad/Temp
+/drumpad/.vscode
+/drumpad/UserSettings
