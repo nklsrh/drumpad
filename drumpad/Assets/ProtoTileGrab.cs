@@ -25,7 +25,7 @@ public class ProtoTileGrab : MonoBehaviour
     {
         btn = arg1;
         currentData = arg2;
-        btnClipDragUIProto.btn.SetData(arg1.btn.Data);
+        btnClipDragUIProto.btn.SetData(GameControl.AudioClipControl.audioClip, arg1.btn.Data);
     }
 
     private void OnDragEnd(ProtoBtnClipDragUI arg1, PointerEventData arg2)
@@ -42,7 +42,6 @@ public class ProtoTileGrab : MonoBehaviour
         {
             btn.btn.isHovering = false;
         }
-        
         btn = null;
         hoveringBtn = null;
     }
@@ -60,11 +59,21 @@ public class ProtoTileGrab : MonoBehaviour
             {
                 foreach (var btn in GameControl.AudioClipControl.btns)
                 {
-                    btn.isHovering =
-                        btn.AllowPlayerDragOut && (RectTransformUtility.RectangleContainsScreenPoint(btn.GetComponent<RectTransform>(),
+                    if (btn.AllowPlayerDragOut)
+                    {
+                        btn.isHovering = (RectTransformUtility.RectangleContainsScreenPoint(btn.GetComponent<RectTransform>(),
                             currentData.position));
+                    }
+                    else
+                    {
+                        btn.isHovering = false;
+                        hoveringBtn = null;
+                    }
                     
-                    hoveringBtn = btn.isHovering ? btn : null;
+                    if (btn.isHovering)
+                    {
+                        hoveringBtn = btn;
+                    }
                 }
             }
         }

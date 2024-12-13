@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -20,6 +21,8 @@ public class ProtoBtnClipPlay : MonoBehaviour
     private int actualIndex;
     public StructBtnData Data;
     public bool isHovering;
+
+    private GameLevelData gameLevelData;
 
     public bool AllowPlayerDragOut
     {
@@ -47,10 +50,15 @@ public class ProtoBtnClipPlay : MonoBehaviour
         onClick.Invoke(index);
     }
 
-    public void SetData(StructBtnData structBtnData)
+    public void SetLevelData(GameLevelData gameLevelData)
+    {
+        this.gameLevelData = gameLevelData;
+    }
+
+    public void SetData(AudioClip clip, StructBtnData structBtnData)
     {
         Data = structBtnData;
-        source.clip = Data.clip;
+        source.clip = clip;
         index = Data.index;
         actualIndex = Data.actualIndex;
         SetEnabled(true);
@@ -63,7 +71,8 @@ public class ProtoBtnClipPlay : MonoBehaviour
 
     public void Play()
     {
-        source.Play();
+        PlaySnippet(gameLevelData.clips[Data.actualIndex].startingPoint, gameLevelData.clips[Data.actualIndex].duration);
+        // source.Play();
         isClipPlaying = true;
         if (OnClipPlayed != null)
         {
@@ -72,6 +81,43 @@ public class ProtoBtnClipPlay : MonoBehaviour
                 index = this.index,
             });
         }
+    }
+    /// <summary>
+    /// Plays a snippet of the assigned audio clip.
+    /// </summary>
+    /// <param name="startingPoint">The starting point in seconds from where the audio snippet begins.</param>
+    /// <param name="duration">The duration of the audio snippet in seconds.</param>
+    public void PlaySnippet(float startingPoint, float duration)
+    {
+        if (source.clip == null)
+        {
+            Debug.LogError("No AudioClip assigned to the AudioSource.");
+            return;
+        }
+
+        if (startingPoint < 0 || startingPoint >= source.clip.length)
+        {
+            Debug.LogError("Starting point is out of bounds.");
+            return;
+        }
+
+        if (duration <= 0 || startingPoint + duration > source.clip.length)
+        {
+            Debug.LogError("Invalid duration specified.");
+            return;
+        }
+
+        StartCoroutine(PlaySnippetCoroutine(startingPoint, duration));
+    }
+
+    private System.Collections.IEnumerator PlaySnippetCoroutine(float startingPoint, float duration)
+    {
+        source.time = startingPoint;
+        source.Play();
+
+        yield return new WaitForSeconds(duration);
+
+        Stop();
     }
 
     public void Stop()

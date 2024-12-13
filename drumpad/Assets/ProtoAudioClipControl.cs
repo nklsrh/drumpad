@@ -6,10 +6,11 @@ using UnityEngine;
 
 public class ProtoAudioClipControl : MonoBehaviour
 {
-    public AudioClip[] clips;
+    public GameLevelData gameLevelData;
     public ProtoBtnClipPlay[] btns;
 
-    public AudioClip finishClip;
+    [HideInInspector]
+    public AudioClip audioClip;
     public AudioSource finishSource;
 
     private int indexPlaying = -1;
@@ -28,10 +29,12 @@ public class ProtoAudioClipControl : MonoBehaviour
 
     private IEnumerator WaitThenStart()
     {
+        LoadLevelData(gameLevelData);
+
         yield return new WaitForSeconds(0.5f);
         
         // make new int that randomises values in clips
-        int[] randomIndex = new int[clips.Length];
+        int[] randomIndex = new int[gameLevelData.clips.Count];
         for (int i = 0; i < randomIndex.Length; i++)
         {
             randomIndex[i] = i;
@@ -55,12 +58,34 @@ public class ProtoAudioClipControl : MonoBehaviour
         SetButtons();
     }
 
+    private void LoadLevelData(GameLevelData gameLevelData)
+    {
+        audioClip = gameLevelData.GetAudioClip();
+
+        for (int i = 0; i < gameLevelData.clips.Count; i++)
+        {
+            var c = gameLevelData.clips[i];
+            if (i == 0)
+            {
+                c.startingPoint = gameLevelData.startingPoint;
+                gameLevelData.clips[i] = c;
+            }
+            else
+            {
+                c.startingPoint = 
+                gameLevelData.clips[i - 1].startingPoint + gameLevelData.clips[i - 1].duration;
+                gameLevelData.clips[i] = c;
+            }
+        }
+    }
+
     void SetButtons()
     {
         for (int i = 0; i < btns.Length; i++)
         {
             btns[i].gameObject.SetActive(true);
-            btns[i].SetData(sequence[i]);
+            btns[i].SetLevelData(gameLevelData);
+            btns[i].SetData(audioClip, sequence[i]);
             btns[i].SetAction(PlaySound);
         }
     }
@@ -87,17 +112,16 @@ public class ProtoAudioClipControl : MonoBehaviour
             locked
              = shouldFreezeIfFirst && sequence.Count == 0,
             actualIndex = randomIndex,
-            clip = clips[randomIndex],
         });
     }
 
     void CheckComplete()
     {
-        if (sequence.Count == clips.Length)
+        if (sequence.Count == gameLevelData.clips.Count)
         {
             bool isCorrect = true;
             // check each element of btns has an Data value that is increasing
-            for (int j = 0; j < clips.Length; j++)
+            for (int j = 0; j < gameLevelData.clips.Count; j++)
             {
                 if (sequence[j].actualIndex != j)
                 {
@@ -109,41 +133,34 @@ public class ProtoAudioClipControl : MonoBehaviour
             Debug.Log("Sequence iS " + (isCorrect ? "CORRECT!" : "INCORRECT!"));
 
             if (isCorrect)
-            {
-                List<AudioClip> playClips = new List<AudioClip>();
-                playClips.AddRange(sequence.Select(r=>r.clip));
-                if (isCorrect)
-                {
-                    playClips.Add(finishClip);
-                }
-                
-                StartCoroutine(playAudioSequentially(playClips, finishSource, isCorrect));
+            {     
+                StartCoroutine(playAudioSequentially(finishSource, isCorrect));
             }
         }
     }
     
-    IEnumerator playAudioSequentially(List<AudioClip> adClips, AudioSource adSource, bool isCorrect)
+    IEnumerator playAudioSequentially(AudioSource adSource, bool isCorrect)
     {
         yield return new WaitForSeconds(1);
 
         //1.Loop through each AudioClip
-        for (int i = 0; i < adClips.Count; i++)
+        for (int i = 0; i < sequence.Count; i++)
         {
             //2.Assign current AudioClip to audiosource
-            adSource.clip = adClips[i];
+            var play = btns[i];
         
             //3.Play Audio
-            adSource.Play();
+            play.Play();
         
             //4.Wait for it to finish playing
-            while (adSource.isPlaying)
+            while (play.isClipPlaying)
             {
                 yield return null;
             }
         
             //5. Go back to #2 and play the next audio in the adClips array
         
-            if (isCorrect && i == adClips.Count - 2)
+            if (isCorrect && i == sequence.Count - 2)
             {
                 OnComplete?.Invoke();
             }
@@ -191,4 +208,26 @@ public class ProtoAudioClipControl : MonoBehaviour
         SetButtons();
         CheckComplete();
     }
+}
+
+[Serializable]
+public struct GameLevelData
+{
+    public string songID;
+    public float startingPoint;
+    public List<GameClipData> clips;
+
+    public AudioClip GetAudioClip()
+    {
+        var clip = Resources.Load<AudioClip>(songID);
+        return clip;
+    }
+}
+
+[Serializable]
+public struct GameClipData
+{
+    [HideInInspector]
+    public float startingPoint;
+    public float duration;
 }

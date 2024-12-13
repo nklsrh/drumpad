@@ -802,16 +802,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b289c794a0f4f4419f6ccf1beee0646, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clips:
-  - {fileID: 8300000, guid: 61a4ebde68559b34b83fd4ef7ccba686, type: 3}
-  - {fileID: 8300000, guid: 614314f9fb90bdd409d79fe4d0e449b2, type: 3}
-  - {fileID: 8300000, guid: 5bf15b1d13ebfc444af1b73317e4f8f1, type: 3}
-  - {fileID: 8300000, guid: 31501780052fc084e8e6202af9561ec7, type: 3}
-  - {fileID: 8300000, guid: d31746209b17d9145806542c60eaddc5, type: 3}
-  - {fileID: 8300000, guid: 0792d5ecc5d42f942a8b53610717b6fa, type: 3}
-  - {fileID: 8300000, guid: 8b6eb9f45ef0a49499573640e03faa16, type: 3}
-  - {fileID: 8300000, guid: 9729c7ef474106d4dab49f10a249fe5e, type: 3}
-  - {fileID: 8300000, guid: 668e64e48d662de42bc03aca2d3188c9, type: 3}
+  gameLevelData:
+    songID: 
+    startingPoint: 0
+    clips: []
   btns:
   - {fileID: 303230839}
   - {fileID: 964525061}
@@ -1552,13 +1546,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b289c794a0f4f4419f6ccf1beee0646, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clips:
-  - {fileID: 8300000, guid: 86ac5ebd09631524caa4985c24677a6c, type: 3}
-  - {fileID: 8300000, guid: 19b01e0eb67dee44e886e72f56b784bb, type: 3}
-  - {fileID: 8300000, guid: 3a66cdad27c425b45aaf749ccce19264, type: 3}
-  - {fileID: 8300000, guid: 47b0dcd506d0b21419c55b6f4fa9f876, type: 3}
-  - {fileID: 8300000, guid: 691faaa41029b7b47b07f77379a456cc, type: 3}
-  - {fileID: 8300000, guid: 4b79eb224a088a14b800342d71e4c054, type: 3}
+  gameLevelData:
+    songID: songs/realslim
+    startingPoint: 12
+    clips:
+    - startingPoint: 0
+      duration: 1
+    - startingPoint: 0
+      duration: 2
+    - startingPoint: 0
+      duration: 1
+    - startingPoint: 0
+      duration: 2
+    - startingPoint: 0
+      duration: 1.5
+    - startingPoint: 0
+      duration: 2
   btns:
   - {fileID: 303230839}
   - {fileID: 964525061}
