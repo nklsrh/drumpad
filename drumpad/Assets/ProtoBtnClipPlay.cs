@@ -19,10 +19,11 @@ public class ProtoBtnClipPlay : MonoBehaviour
     private int index;
     private int actualIndex;
     public StructBtnData Data;
+    public bool isHovering;
 
     public bool AllowPlayerDragOut
     {
-        get { return !Data.disableDrag; }
+        get { return !Data.locked; }
     }
 
     public bool IsStarter

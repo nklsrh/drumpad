@@ -32,12 +32,19 @@ public class ProtoTileGrab : MonoBehaviour
     {
         if (hoveringBtn)
         {
-            hoveringBtn.Data.isHovering = false;
+            hoveringBtn.isHovering = false;
             // do the swap!
-            GameControl.InsertBtnHere(arg1, hoveringBtn);
+            if (hoveringBtn.AllowPlayerDragOut)
+                GameControl.InsertBtnHere(arg1, hoveringBtn);
+        }
+        
+        if (btn)
+        {
+            btn.btn.isHovering = false;
         }
         
         btn = null;
+        hoveringBtn = null;
     }
 
     void Update()
@@ -53,14 +60,11 @@ public class ProtoTileGrab : MonoBehaviour
             {
                 foreach (var btn in GameControl.AudioClipControl.btns)
                 {
-                    btn.Data.isHovering =
-                        (RectTransformUtility.RectangleContainsScreenPoint(btn.GetComponent<RectTransform>(),
+                    btn.isHovering =
+                        btn.AllowPlayerDragOut && (RectTransformUtility.RectangleContainsScreenPoint(btn.GetComponent<RectTransform>(),
                             currentData.position));
                     
-                    if (btn.Data.isHovering)
-                    {
-                        hoveringBtn = btn;
-                    }
+                    hoveringBtn = btn.isHovering ? btn : null;
                 }
             }
         }

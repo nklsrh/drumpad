@@ -37,7 +37,8 @@ public class ProtoAudioClipControl : MonoBehaviour
             randomIndex[i] = i;
         }
 
-        for (int i = 0; i < randomIndex.Length; i++)
+        // dont randomise the first tile
+        for (int i = 1; i < randomIndex.Length; i++)
         {
             int temp = randomIndex[i];
             int randomIndexValue = UnityEngine.Random.Range(i, randomIndex.Length);
@@ -78,9 +79,13 @@ public class ProtoAudioClipControl : MonoBehaviour
 
     private void AddClipToSequence(int randomIndex)
     {
+        bool shouldFreezeIfFirst = true;
+
         sequence.Add(new StructBtnData()
         {
             index = sequence.Count,
+            locked
+             = shouldFreezeIfFirst && sequence.Count == 0,
             actualIndex = randomIndex,
             clip = clips[randomIndex],
         });
@@ -96,7 +101,7 @@ public class ProtoAudioClipControl : MonoBehaviour
             {
                 if (sequence[j].actualIndex != j)
                 {
-                    Debug.LogError("Sequence is not correct at index " + j);
+                    // Debug.LogError("Sequence is not correct at index " + j);
                     isCorrect = false;
                 }
             }
@@ -140,7 +145,6 @@ public class ProtoAudioClipControl : MonoBehaviour
         
             if (isCorrect && i == adClips.Count - 2)
             {
-                // panelComplete.SetActive(true);
                 OnComplete?.Invoke();
             }
         }
@@ -178,34 +182,13 @@ public class ProtoAudioClipControl : MonoBehaviour
         // update the index of each item in the sequence
         for (int i = 0; i < sequence.Count; i++)
         {
-            sequence[i] = new StructBtnData()
-            {
-                index = i,
-                actualIndex = sequence[i].actualIndex,
-                clip = sequence[i].clip,
-            };
+            var s = sequence[i];
+            s.index = i;
+            sequence[i] = s;
         }
         
         // then populate the same butttons with the new order
         SetButtons();
-        //
-        // // move the button to the correct position
-        // btn.transform.SetSiblingIndex(prevIndex);
         CheckComplete();
     }
-}
-
-public struct StructBtnData
-{
-    public int index;
-    public int actualIndex;
-    public AudioClip clip;
-    public bool disableDrag;
-    public bool isHovering;
-}
-
-public struct StructAddClipSequence
-{
-    public int index;
-    public StructBtnData data;
 }
