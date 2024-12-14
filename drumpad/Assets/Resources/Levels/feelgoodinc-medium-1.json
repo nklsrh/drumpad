@@ -28,5 +28,6 @@
         }
     ],
     "moves": 15,
+    "rewardCoins": 150,
     "gameType": 0
 }

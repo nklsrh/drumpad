@@ -56,18 +56,17 @@ public class LevelEditorWindow : EditorWindow
         EditorGUILayout.LabelField("Select a Level:");
         if (availableLevels.Length > 0)
         {
+            var i = selectedLevelIndex;
             selectedLevelIndex = EditorGUILayout.Popup(selectedLevelIndex, availableLevels);
+            if (selectedLevelIndex != i)
+            {
+                LoadSelectedLevel();
+            }
             currentLevelFileName = availableLevels[selectedLevelIndex];
         }
         else
         {
             EditorGUILayout.HelpBox("No levels found in 'Assets/Resources/Levels'. Add JSON files to the folder.", MessageType.Warning);
-        }
-
-        // Load selected level
-        if (GUILayout.Button("Load Level"))
-        {
-            LoadSelectedLevel();
         }
         GUILayout.EndHorizontal();
 
@@ -88,6 +87,7 @@ public class LevelEditorWindow : EditorWindow
 
             currentLevelData.moves = EditorGUILayout.IntField("Moves", currentLevelData.moves);
             currentLevelData.gameType = (GameLevelData.eGameType)EditorGUILayout.EnumPopup("Game Type", currentLevelData.gameType);
+            currentLevelData.rewardCoins = EditorGUILayout.IntField("Reward Coins", currentLevelData.rewardCoins);
 
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Level Layout", EditorStyles.boldLabel);

@@ -65,6 +65,7 @@ public class ProtoGameControl : MonoBehaviour
     {      
         if (isWon)
         {
+            CurrencyManager.Instance.AddToCurrency(CurrencyManager.CURRENCY_COINS, 15);
             panelComplete.SetActive(true);
         }
         else
@@ -81,8 +82,16 @@ public class ProtoGameControl : MonoBehaviour
 
     private void OnContinueUpsell()
     {
-        AudioClipControl.ReplenishMoves(20);
-        panelFail.gameObject.SetActive(false);
+        if (CurrencyManager.Instance.SpendCurrency(CurrencyManager.CURRENCY_COINS, 900))
+        {
+            AudioClipControl.ReplenishMoves(20);
+            panelFail.gameObject.SetActive(false);
+        }
+        else
+        {
+            // whattlolllll
+            CurrencyManager.Instance.ActivateUnlimitedMode(CurrencyManager.CURRENCY_LIVES, 300);
+        }
     }
 
     private void OnContinueAd()
@@ -94,7 +103,8 @@ public class ProtoGameControl : MonoBehaviour
     private void OnFailClose()
     {
         panelFail.gameObject.SetActive(false);
-
+        
+        CurrencyManager.Instance.SpendCurrency(CurrencyManager.CURRENCY_LIVES, 1);
         SceneManager.LoadScene("MainMenu");
     }
 

@@ -9,6 +9,7 @@ public struct GameLevelData
     public float startingPoint;
     public List<GameClipData> clips;
     public int moves;
+    public int rewardCoins;
     public enum eGameType
     {
         SongClips = 0,

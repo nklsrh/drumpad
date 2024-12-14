@@ -20,6 +20,9 @@ public class ProtoUICampaignStart : MonoBehaviour
 
     private void OnPlay()
     {
-        SceneManager.LoadScene("SampleScene");
+        if (CurrencyManager.Instance.GetCurrencyAmount(CurrencyManager.CURRENCY_LIVES) > 0)
+        {
+            SceneManager.LoadScene("Game");
+        }
     }
 }
