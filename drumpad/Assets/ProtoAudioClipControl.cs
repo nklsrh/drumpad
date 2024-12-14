@@ -36,6 +36,46 @@ public class ProtoAudioClipControl : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
         
+        var randomIndex = RandomiseClips();
+        int loops = 1000;
+        while (CheckRandomness(randomIndex) && loops > 0)
+        {
+            loops--;
+            randomIndex = RandomiseClips();
+        }
+
+        for (int i = 0; i < randomIndex.Length; i++)
+        {
+            int randomIndexValue = randomIndex[i];
+            AddClipToSequence(randomIndexValue);
+        }
+
+        SetButtons();
+
+        // just in case some fuckwit set up a broken level that automatically wins (1 clip or some shit)
+        CheckCompleteAndFinish();
+    }
+
+    bool CheckRandomness(int[] randomIndex)
+    {
+        if (randomIndex.Length == gameLevelData.clips.Count)
+        {
+            bool isCorrect = true;
+            for (int j = 0; j < randomIndex.Length; j++)
+            {
+                if (randomIndex[j] != j)
+                {
+                    isCorrect = false;
+                }
+            }
+
+            return isCorrect;
+        }
+        return false;
+    }
+
+    int[] RandomiseClips()
+    {
         // make new int that randomises values in clips
         int[] randomIndex = new int[gameLevelData.clips.Count];
         for (int i = 0; i < randomIndex.Length; i++)
@@ -51,14 +91,7 @@ public class ProtoAudioClipControl : MonoBehaviour
             randomIndex[i] = randomIndex[randomIndexValue];
             randomIndex[randomIndexValue] = temp;
         }
-        
-        for (int i = 0; i < randomIndex.Length; i++)
-        {
-            int randomIndexValue = randomIndex[i];
-            AddClipToSequence(randomIndexValue);
-        }
-
-        SetButtons();
+        return randomIndex;
     }
 
     private void LoadLevelData(GameLevelData gameLevelData)
@@ -125,7 +158,7 @@ public class ProtoAudioClipControl : MonoBehaviour
         });
     }
 
-    void CheckComplete()
+    bool CheckComplete()
     {
         if (sequence.Count == gameLevelData.clips.Count)
         {
@@ -142,11 +175,9 @@ public class ProtoAudioClipControl : MonoBehaviour
             
             Debug.Log("Sequence iS " + (isCorrect ? "CORRECT!" : "INCORRECT!"));
 
-            if (isCorrect)
-            {     
-                StartCoroutine(playAudioSequentially(finishSource, isCorrect));
-            }
+            return isCorrect;
         }
+        return false;
     }
     
     IEnumerator playAudioSequentially(AudioSource adSource, bool isCorrect)
@@ -200,6 +231,8 @@ public class ProtoAudioClipControl : MonoBehaviour
     {
         var newIndex = insertBefore.Data.index;
         var oldItemIndex = btn.btn.Data.index;
+
+        if (newIndex == oldItemIndex) return;
         
         // move the actual data around in the sequence
         var item = sequence[oldItemIndex];
@@ -216,7 +249,17 @@ public class ProtoAudioClipControl : MonoBehaviour
         
         // then populate the same butttons with the new order
         SetButtons();
-        CheckComplete();
+        CheckCompleteAndFinish();
+    }
+
+    bool CheckCompleteAndFinish()
+    {
+        if (CheckComplete())
+        {
+            StartCoroutine(playAudioSequentially(finishSource, true));
+            return true;
+        }
+        return false;
     }
 }
 
