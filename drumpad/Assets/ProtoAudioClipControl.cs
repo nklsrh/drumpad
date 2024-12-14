@@ -271,6 +271,15 @@ public class ProtoAudioClipControl : MonoBehaviour
         CheckMovesOver();
     }
 
+    public void ReplenishMoves(int moves)
+    {
+        movesTaken -= moves;
+        if (OnMove != null)
+        {
+            OnMove(this);
+        }
+    }
+
     private void CheckMovesOver()
     {
         if (movesTaken > gameLevelData.moves)

@@ -30,6 +30,6 @@ public class ProtoUIMoves : MonoBehaviour
         var currentMoves = control.movesTaken;
 
         if (txtMoves)
-            txtMoves.SetText((totalMoves - currentMoves).ToString());
+            txtMoves.SetText((totalMoves - currentMoves + 1).ToString());
     }
 }

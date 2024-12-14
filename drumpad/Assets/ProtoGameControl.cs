@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,16 +9,27 @@ public class ProtoGameControl : MonoBehaviour
     public CampaignLoader campaignLoader;
     public ProtoUIPanelStart panelStart;
     public GameObject panelComplete;
-    public GameObject panelFail;
+    public ProtoUIPanelFail panelFail;
 
     public ProtoAudioClipControl AudioClipControl;
 
     // Start is called before the first frame update
     void Start()
     {
+        ResetUI();
+    }
+
+    private void ResetUI()
+    {
         panelComplete.SetActive(false);
         panelStart.gameObject.SetActive(true);
         panelStart.Setup();
+        panelFail.Setup(new StructPanelFail
+        {
+            onClose = OnFailClose,
+            onContinueAd = OnContinueAd,
+            onContinueUpsell = OnContinueUpsell
+        });
     }
 
     public GameLevelData LoadGameLevelDataFromProgress()
@@ -44,26 +56,49 @@ public class ProtoGameControl : MonoBehaviour
     public void StartNextLevel()
     {
         campaignLoader.CompleteCurrentLevel();
-        Start();
+        ResetUI();
         StartGame();
     }
 
     public void OnGameComplete(bool isWon)
-    {
-        AudioClipControl.OnComplete -= OnGameComplete;
-        
+    {      
         if (isWon)
         {
             panelComplete.SetActive(true);
         }
         else
         {
-            panelFail.SetActive(true);
+            panelFail.gameObject.SetActive(true);
+            panelFail.Show();
         }
     }
 
     public void InsertBtnHere(ProtoBtnClipDragUI btn, ProtoBtnClipPlay insertBefore)
     {
         AudioClipControl.InsertBtnHere(btn, insertBefore);
+    }
+
+    private void OnContinueUpsell()
+    {
+        AudioClipControl.ReplenishMoves(20);
+        panelFail.gameObject.SetActive(false);
+    }
+
+    private void OnContinueAd()
+    {
+        AudioClipControl.ReplenishMoves(10);
+        panelFail.gameObject.SetActive(false);
+    }
+
+    private void OnFailClose()
+    {
+        panelFail.gameObject.SetActive(false);
+        ResetUI();
+        StartGame();
+    }
+
+    void Exit()
+    {
+        AudioClipControl.OnComplete -= OnGameComplete;
     }
 }
