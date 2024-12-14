@@ -274,6 +274,8 @@ public struct GameLevelData
     public float startingPoint;
     public List<GameClipData> clips;
 
+    public LevelRulesData rules;
+
     public AudioClip GetAudioClip()
     {
         var clip = Resources.Load<AudioClip>("songs/" + songID);

@@ -1,29 +1,29 @@
 {
     "songID": "feelgoodinc",
-    "startingPoint": 34.5,
+    "startingPoint": 96.0,
     "clips": [
         {
-            "startingPoint": 34.5,
+            "startingPoint": 96.0,
             "duration": 2.0
         },
         {
-            "startingPoint": 36.5,
+            "startingPoint": 98.0,
             "duration": 2.0
         },
         {
-            "startingPoint": 38.5,
+            "startingPoint": 100.0,
             "duration": 2.0
         },
         {
-            "startingPoint": 40.5,
+            "startingPoint": 102.0,
             "duration": 2.0
         },
         {
-            "startingPoint": 42.5,
+            "startingPoint": 104.0,
             "duration": 2.0
         },
         {
-            "startingPoint": 44.5,
+            "startingPoint": 106.0,
             "duration": 2.0
         }
     ]

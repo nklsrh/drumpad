@@ -5,10 +5,15 @@ using System.IO;
 
 public class LevelEditorWindow : EditorWindow
 {
+    private string[] availableLevels; // List of available level file names
+    private int selectedLevelIndex = 0; // Current selected level index
+    private string currentLevelFileName = ""; // Selected level file name
+
     private GameLevelData currentLevelData;
     private string savePath = "Assets/Resources/Levels/";
-    private string fileName = "NewLevel.json";
     private AudioSource editorAudioSource; // AudioSource for playing clips
+    private double stopTime = 0; // To track when to stop playback
+    private string saveFileName = "";
 
     [MenuItem("Tools/Level Editor")]
     public static void ShowWindow()
@@ -24,6 +29,8 @@ public class LevelEditorWindow : EditorWindow
             audioSourceObject.hideFlags = HideFlags.HideAndDontSave;
             editorAudioSource = audioSourceObject.AddComponent<AudioSource>();
         }
+
+        RefreshAvailableLevels();
     }
 
     private void OnDisable()
@@ -38,145 +45,208 @@ public class LevelEditorWindow : EditorWindow
     {
         EditorGUILayout.LabelField("Level Editor", EditorStyles.boldLabel);
 
-        // Song ID
-        currentLevelData.songID = EditorGUILayout.TextField("Song ID", currentLevelData.songID);
-
-        // Starting Point
-        currentLevelData.startingPoint = EditorGUILayout.FloatField("Starting Point", currentLevelData.startingPoint);
-
-        // Clips List
-        if (currentLevelData.clips == null)
-            currentLevelData.clips = new List<GameClipData>();
-
-        EditorGUILayout.LabelField("Clips", EditorStyles.boldLabel);
-        for (int i = 0; i < currentLevelData.clips.Count; i++)
+        // Refresh Level List
+        if (GUILayout.Button("Refresh Levels", GUILayout.Height(50)))
         {
-            EditorGUILayout.BeginHorizontal();
-            
-            var c = currentLevelData.clips[i];
-            c.startingPoint = (i>0? currentLevelData.clips[i - 1].startingPoint + currentLevelData.clips[i-1].duration : currentLevelData.startingPoint);
-            EditorGUILayout.LabelField("Starting Point: " +  c.startingPoint + "s");
-            c.duration = EditorGUILayout.FloatField("Duration", currentLevelData.clips[i].duration);
-            currentLevelData.clips[i] = c;
-
-            if (GUILayout.Button("Play Audio"))
-            {
-                PlayClip(i);
-            }
-
-            if (GUILayout.Button("Remove"))
-            {
-                currentLevelData.clips.RemoveAt(i);
-                break;
-            }
-            EditorGUILayout.EndHorizontal();
+            RefreshAvailableLevels();
         }
 
-        if (GUILayout.Button("Add Clip"))
+        GUILayout.BeginHorizontal();
+        // Dropdown to select a level
+        EditorGUILayout.LabelField("Select a Level:");
+        if (availableLevels.Length > 0)
         {
-            currentLevelData.clips.Add(new GameClipData());
+            selectedLevelIndex = EditorGUILayout.Popup(selectedLevelIndex, availableLevels);
+            currentLevelFileName = availableLevels[selectedLevelIndex];
+        }
+        else
+        {
+            EditorGUILayout.HelpBox("No levels found in 'Assets/Resources/Levels'. Add JSON files to the folder.", MessageType.Warning);
         }
 
-        // Save and Load
-        EditorGUILayout.Space();
-        fileName = EditorGUILayout.TextField("File Name", fileName);
+        // Load selected level
+        if (GUILayout.Button("Load Level"))
+        {
+            LoadSelectedLevel();
+        }
+        GUILayout.EndHorizontal();
 
+        GUILayout.Space(50);
+
+        // Level Data Editing
+        if (currentLevelData.clips != null)
+        {
+            GUIStyle SectionNameStyle = new GUIStyle();
+            SectionNameStyle.fontSize = 30;
+            SectionNameStyle.fontStyle = FontStyle.Bold;
+
+            EditorGUILayout.LabelField("SONG SELECTED: ", currentLevelFileName, SectionNameStyle, GUILayout.Width(300), GUILayout.Height(50));
+
+            currentLevelData.songID = EditorGUILayout.TextField("Song ID", currentLevelData.songID);
+            currentLevelData.startingPoint = EditorGUILayout.FloatField("Starting Point", currentLevelData.startingPoint);
+
+            EditorGUILayout.LabelField("Clips", EditorStyles.boldLabel);
+            for (int i = 0; i < currentLevelData.clips.Count; i++)
+            {
+                EditorGUILayout.BeginHorizontal();
+              
+                var c = currentLevelData.clips[i];
+                c.startingPoint = (i>0? currentLevelData.clips[i - 1].startingPoint + currentLevelData.clips[i-1].duration : currentLevelData.startingPoint);
+                EditorGUILayout.LabelField("Starting Point: " +  c.startingPoint + "s");
+                c.duration = EditorGUILayout.FloatField("Duration", currentLevelData.clips[i].duration);
+                currentLevelData.clips[i] = c;
+
+                if (GUILayout.Button("Play Audio"))
+                {
+                    PlayClip(i);
+                }
+                
+                if (GUILayout.Button("Remove"))
+                {
+                    currentLevelData.clips.RemoveAt(i);
+                    break;
+                }
+                EditorGUILayout.EndHorizontal();
+            }
+
+            if (GUILayout.Button("Add Clip"))
+            {
+                currentLevelData.clips.Add(new GameClipData());
+            }
+        }
+
+        GUILayout.Space(50);
+
+
+        saveFileName = EditorGUILayout.TextField("Filename", saveFileName);
+
+        // Save Level
         if (GUILayout.Button("Save Level"))
         {
             SaveLevel();
         }
+    }
 
-        if (GUILayout.Button("Load Level"))
+    private void RefreshAvailableLevels()
+    {
+        string levelsPath = Path.Combine(Application.dataPath, "Resources/Levels");
+        if (Directory.Exists(levelsPath))
         {
-            LoadLevel();
+            var files = Directory.GetFiles(levelsPath, "*.json");
+            availableLevels = new string[files.Length];
+            for (int i = 0; i < files.Length; i++)
+            {
+                availableLevels[i] = Path.GetFileNameWithoutExtension(files[i]);
+            }
+        }
+        else
+        {
+            availableLevels = new string[0];
+        }
+
+        // Reset selection if no levels exist
+        if (availableLevels.Length == 0)
+        {
+            selectedLevelIndex = 0;
+            currentLevelFileName = "";
+        }
+    }
+
+    private void LoadSelectedLevel()
+    {
+        if (string.IsNullOrEmpty(currentLevelFileName))
+        {
+            Debug.LogError("No level selected to load!");
+            return;
+        }
+
+        string filePath = Path.Combine(savePath, currentLevelFileName + ".json");
+        if (File.Exists(filePath))
+        {
+            string json = File.ReadAllText(filePath);
+            currentLevelData = JsonUtility.FromJson<GameLevelData>(json);
+            Debug.Log($"Level '{currentLevelFileName}' loaded successfully.");
+
+            saveFileName = currentLevelFileName;
+        }
+        else
+        {
+            Debug.LogError($"File not found: {filePath}");
         }
     }
 
     private void SaveLevel()
     {
+        if (currentLevelData.IsEmpty())
+        {
+            Debug.LogError("No level data to save!");
+            return;
+        }
+
         if (!Directory.Exists(savePath))
             Directory.CreateDirectory(savePath);
 
+        string filePath = Path.Combine(savePath, saveFileName + ".json");
         string json = JsonUtility.ToJson(currentLevelData, true);
-        if (!fileName.Contains("."))
-        {
-            fileName = fileName + ".json";
-        }
-        File.WriteAllText(Path.Combine(savePath, fileName), json);
+        File.WriteAllText(filePath, json);
         AssetDatabase.Refresh();
-        Debug.Log("Level Saved!");
+        Debug.Log($"Level '{saveFileName}' saved to '{filePath}'.");
+
+        RefreshAvailableLevels();
     }
 
-    private void LoadLevel()
+
+    private void PlayClip(int clipIndex)
     {
-        string filePath = Path.Combine(savePath, fileName);
-        if (!filePath.Contains("."))
+        if (string.IsNullOrEmpty(currentLevelData.songID))
         {
-            filePath = filePath + ".json";
-        }
-        if (File.Exists(filePath))
-        {
-            string json = File.ReadAllText(filePath);
-            currentLevelData = JsonUtility.FromJson<GameLevelData>(json);
-            Debug.Log("Level Loaded!");
-        }
-        else
-        {
-            Debug.LogError("File not found: " + filePath);
-        }
-    }private double stopTime = 0; // To track when to stop playback
-
-private void PlayClip(int clipIndex)
-{
-    if (string.IsNullOrEmpty(currentLevelData.songID))
-    {
-        Debug.LogError("Song ID is not set!");
-        return;
-    }
-
-    AudioClip audioClip = Resources.Load<AudioClip>("songs/"+currentLevelData.songID);
-    if (audioClip == null)
-    {
-        Debug.LogError($"Audio clip not found in Resources: {currentLevelData.songID}");
-        return;
-    }
-
-    GameClipData clipData = currentLevelData.clips[clipIndex];
-    float startPoint = clipData.startingPoint;
-    float duration = clipData.duration;
-
-    if (startPoint + duration > audioClip.length)
-    {
-        Debug.LogWarning("Clip duration exceeds audio clip length. Adjusting playback duration.");
-        duration = audioClip.length - startPoint;
-    }
-
-    editorAudioSource.clip = audioClip;
-    editorAudioSource.time = startPoint;
-    editorAudioSource.Play();
-    Debug.Log($"Playing clip {clipIndex}: Starting at {startPoint}, Duration {duration}");
-
-    // Schedule the stop time
-    stopTime = EditorApplication.timeSinceStartup + duration;
-
-    // Subscribe to EditorApplication.update for stopping playback
-    EditorApplication.update += StopPlaybackAfterDuration;
-}
-
-private void StopPlaybackAfterDuration()
-{
-    // Check if the stop time has been reached
-    if (EditorApplication.timeSinceStartup >= stopTime)
-    {
-        if (editorAudioSource.isPlaying)
-        {
-            editorAudioSource.Stop();
-            Debug.Log("Playback stopped.");
+            Debug.LogError("Song ID is not set!");
+            return;
         }
 
-        // Unsubscribe from EditorApplication.update
-        EditorApplication.update -= StopPlaybackAfterDuration;
+        AudioClip audioClip = Resources.Load<AudioClip>("songs/"+currentLevelData.songID);
+        if (audioClip == null)
+        {
+            Debug.LogError($"Audio clip not found in Resources: {currentLevelData.songID}");
+            return;
+        }
+
+        GameClipData clipData = currentLevelData.clips[clipIndex];
+        float startPoint = clipData.startingPoint;
+        float duration = clipData.duration;
+
+        if (startPoint + duration > audioClip.length)
+        {
+            Debug.LogWarning("Clip duration exceeds audio clip length. Adjusting playback duration.");
+            duration = audioClip.length - startPoint;
+        }
+
+        editorAudioSource.clip = audioClip;
+        editorAudioSource.time = startPoint;
+        editorAudioSource.Play();
+        Debug.Log($"Playing clip {clipIndex}: Starting at {startPoint}, Duration {duration}");
+
+        // Schedule the stop time
+        stopTime = EditorApplication.timeSinceStartup + duration;
+
+        // Subscribe to EditorApplication.update for stopping playback
+        EditorApplication.update += StopPlaybackAfterDuration;
     }
-}
+
+    private void StopPlaybackAfterDuration()
+    {
+        // Check if the stop time has been reached
+        if (EditorApplication.timeSinceStartup >= stopTime)
+        {
+            if (editorAudioSource.isPlaying)
+            {
+                editorAudioSource.Stop();
+                Debug.Log("Playback stopped.");
+            }
+
+            // Unsubscribe from EditorApplication.update
+            EditorApplication.update -= StopPlaybackAfterDuration;
+        }
+    }
 
 }
