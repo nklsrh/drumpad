@@ -82,6 +82,16 @@ public class LevelEditorWindow : EditorWindow
 
             EditorGUILayout.LabelField("SONG SELECTED: ", currentLevelFileName, SectionNameStyle, GUILayout.Width(300), GUILayout.Height(50));
 
+            // Level Rules Section
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField("Level Rules", EditorStyles.boldLabel);
+
+            currentLevelData.moves = EditorGUILayout.IntField("Moves", currentLevelData.moves);
+            currentLevelData.gameType = (GameLevelData.eGameType)EditorGUILayout.EnumPopup("Game Type", currentLevelData.gameType);
+
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField("Level Layout", EditorStyles.boldLabel);
+
             currentLevelData.songID = EditorGUILayout.TextField("Song ID", currentLevelData.songID);
             currentLevelData.startingPoint = EditorGUILayout.FloatField("Starting Point", currentLevelData.startingPoint);
 

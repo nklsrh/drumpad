@@ -4,7 +4,6 @@ public class CampaignLoader : MonoBehaviour
 {
     public string campaignFileName = "campaign-1"; // Name of the campaign JSON file without extension
 
-    private LevelLoader levelLoader;
     private Campaign currentCampaign;
     private CampaignProgressManager progressManager;
 
@@ -14,11 +13,6 @@ public class CampaignLoader : MonoBehaviour
         if (progressManager == null)
         {
             progressManager = gameObject.AddComponent<CampaignProgressManager>();
-        }
-        levelLoader = GetComponent<LevelLoader>();
-        if (levelLoader == null)
-        {
-            levelLoader = gameObject.AddComponent<LevelLoader>();
         }
     }
 
@@ -49,7 +43,7 @@ public class CampaignLoader : MonoBehaviour
             Debug.Log($"Starting level: {nextLevel}");
             // Logic to load the level
 
-            return levelLoader.LoadLevel(nextLevel);            
+            return LevelLoader.LoadLevel(nextLevel);            
         }
         else
         {

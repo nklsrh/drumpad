@@ -1,9 +1,8 @@
 using UnityEngine;
-using System.IO;
 
-public class LevelLoader : MonoBehaviour
+public class LevelLoader
 {
-    public GameLevelData LoadLevel(string levelFilePath)
+    public static GameLevelData LoadLevel(string levelFilePath)
     {
         var text = Resources.Load<TextAsset>("Levels/" + levelFilePath);
         if (text != null)

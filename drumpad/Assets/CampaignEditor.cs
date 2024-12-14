@@ -6,7 +6,7 @@ using System.IO;
 public class CampaignEditor : EditorWindow
 {
     private Campaign currentCampaign;
-    private string fileName = "NewCampaign"; // File name without extension
+    private string fileName = "campaign-1"; // File name without extension
     private string[] levelFiles; // List of level files from Levels folder
     private int[] selectedIndices; // Tracks selected levels for dropdown
 
@@ -40,47 +40,67 @@ public class CampaignEditor : EditorWindow
             return;
         }
 
-        EditorGUILayout.LabelField("Levels", EditorStyles.boldLabel);
+        if (currentCampaign.IsEmpty())
+        {   
+            EditorGUILayout.LabelField("Levels", EditorStyles.boldLabel);
 
-        // Display levels in the campaign with dropdown for selection
-        scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.Height(300));
-        for (int i = 0; i < currentCampaign.levels.Count; i++)
-        {
-            EditorGUILayout.BeginHorizontal();
-
-            // Dropdown to select a level
-            selectedIndices[i] = GetDropdownIndex(currentCampaign.levels[i]);
-            selectedIndices[i] = EditorGUILayout.Popup(selectedIndices[i], levelFiles);
-
-            // Update the campaign level with the selected file
-            currentCampaign.levels[i] = levelFiles[selectedIndices[i]];
-
-            // Remove button
-            if (GUILayout.Button("Remove", GUILayout.Width(70)))
+            // Display levels in the campaign with dropdown for selection
+            scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.Height(300));
+            for (int i = 0; i < currentCampaign.levels.Count; i++)
             {
-                currentCampaign.levels.RemoveAt(i);
-                selectedIndices = RemoveIndexFromArray(selectedIndices, i);
-                break;
+                EditorGUILayout.BeginHorizontal();
+
+                // Dropdown to select a level
+                selectedIndices[i] = GetDropdownIndex(currentCampaign.levels[i]);
+                selectedIndices[i] = EditorGUILayout.Popup(selectedIndices[i], levelFiles);
+
+                // Update the campaign level with the selected file
+                currentCampaign.levels[i] = levelFiles[selectedIndices[i]];
+
+                // Load and display the moves field for this level
+                var level = LevelLoader.LoadLevel(currentCampaign.levels[i]);
+                if (!level.IsEmpty())
+                {
+                    level.moves = EditorGUILayout.IntField("Moves", level.moves);
+                    // Update button
+                    if (GUILayout.Button("Update", GUILayout.Width(70)))
+                    {
+                        SaveLevel(currentCampaign.levels[i], level);
+                        break;
+                    }
+                }
+                else
+                {
+                    EditorGUILayout.LabelField("Level not found", GUILayout.Width(150));
+                }
+                        
+                // Remove button
+                if (GUILayout.Button("Remove", GUILayout.Width(70)))
+                {
+                    currentCampaign.levels.RemoveAt(i);
+                    selectedIndices = RemoveIndexFromArray(selectedIndices, i);
+                    break;
+                }
+
+                EditorGUILayout.EndHorizontal();
+            }
+            EditorGUILayout.EndScrollView();
+
+            // Add new level
+            if (GUILayout.Button("Add Level"))
+            {
+                currentCampaign.levels.Add(levelFiles[0]); // Default to the first level file
+                selectedIndices = AddIndexToArray(selectedIndices, 0);
             }
 
-            EditorGUILayout.EndHorizontal();
-        }
-        EditorGUILayout.EndScrollView();
+            // Save and Load Campaign
+            EditorGUILayout.Space();
+            fileName = EditorGUILayout.TextField("File Name", fileName);
 
-        // Add new level
-        if (GUILayout.Button("Add Level"))
-        {
-            currentCampaign.levels.Add(levelFiles[0]); // Default to the first level file
-            selectedIndices = AddIndexToArray(selectedIndices, 0);
-        }
-
-        // Save and Load Campaign
-        EditorGUILayout.Space();
-        fileName = EditorGUILayout.TextField("File Name", fileName);
-
-        if (GUILayout.Button("Save Campaign"))
-        {
-            SaveCampaign();
+            if (GUILayout.Button("Save Campaign"))
+            {
+                SaveCampaign();
+            }
         }
 
         if (GUILayout.Button("Load Campaign"))
@@ -176,4 +196,18 @@ public class CampaignEditor : EditorWindow
         currentCampaign = JsonUtility.FromJson<Campaign>(json);
         Debug.Log($"Campaign loaded from {loadPath}");
     }
+
+    private string savePath = "Assets/Resources/Levels/";
+    private void SaveLevel(string level, GameLevelData data)
+    {
+        if (!Directory.Exists(savePath))
+            Directory.CreateDirectory(savePath);
+
+        string filePath = Path.Combine(savePath, level + ".json");
+        string json = JsonUtility.ToJson(data, true);
+        File.WriteAllText(filePath, json);
+        AssetDatabase.Refresh();
+        Debug.Log($"Level '{level}' saved to '{filePath}'.");
+    }
+
 }

@@ -1,32 +1,32 @@
 {
     "songID": "shapeofyou",
-    "startingPoint": 160.0,
+    "startingPoint": 122.0,
     "clips": [
         {
-            "startingPoint": 160.0,
+            "startingPoint": 122.0,
             "duration": 2.4000000953674318
         },
         {
-            "startingPoint": 162.39999389648438,
+            "startingPoint": 124.4000015258789,
             "duration": 2.4000000953674318
         },
         {
-            "startingPoint": 164.79998779296876,
+            "startingPoint": 126.80000305175781,
             "duration": 2.4000000953674318
         },
         {
-            "startingPoint": 167.19998168945313,
+            "startingPoint": 129.1999969482422,
             "duration": 2.4000000953674318
         },
         {
-            "startingPoint": 169.5999755859375,
+            "startingPoint": 131.59999084472657,
             "duration": 2.4000000953674318
         },
         {
-            "startingPoint": 171.99996948242188,
+            "startingPoint": 133.99998474121095,
             "duration": 2.4000000953674318
         }
     ],
-    "moves": 15,
+    "moves": 30,
     "gameType": 0
 }

@@ -273,8 +273,13 @@ public struct GameLevelData
     public string songID;
     public float startingPoint;
     public List<GameClipData> clips;
-
-    public LevelRulesData rules;
+    public int moves;
+    public enum eGameType
+    {
+        SongClips = 0,
+        AlbumArt,        
+    }
+    public eGameType gameType;
 
     public AudioClip GetAudioClip()
     {

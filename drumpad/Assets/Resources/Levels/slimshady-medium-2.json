@@ -26,5 +26,7 @@
             "startingPoint": 131.3000030517578,
             "duration": 2.0
         }
-    ]
+    ],
+    "moves": 10,
+    "gameType": 0
 }
