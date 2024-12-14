@@ -4,29 +4,42 @@
     "clips": [
         {
             "startingPoint": 90.0,
-            "duration": 2.4000000953674318
+            "duration": 2.0
         },
         {
-            "startingPoint": 92.4000015258789,
-            "duration": 2.4000000953674318
+            "startingPoint": 92.0,
+            "duration": 2.0
         },
         {
-            "startingPoint": 94.80000305175781,
-            "duration": 2.4000000953674318
+            "startingPoint": 94.0,
+            "duration": 2.0
         },
         {
-            "startingPoint": 97.20000457763672,
-            "duration": 2.4000000953674318
+            "startingPoint": 96.0,
+            "duration": 2.0
         },
         {
-            "startingPoint": 99.60000610351563,
-            "duration": 2.4000000953674318
+            "startingPoint": 98.0,
+            "duration": 2.0
         },
         {
-            "startingPoint": 102.00000762939453,
-            "duration": 2.4000000953674318
+            "startingPoint": 100.0,
+            "duration": 2.0
+        },
+        {
+            "startingPoint": 102.0,
+            "duration": 2.0
+        },
+        {
+            "startingPoint": 104.0,
+            "duration": 2.0
+        },
+        {
+            "startingPoint": 106.0,
+            "duration": 4.0
         }
     ],
-    "moves": 22,
+    "moves": 8,
+    "rewardCoins": 0,
     "gameType": 0
 }

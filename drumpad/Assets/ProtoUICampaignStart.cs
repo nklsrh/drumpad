@@ -24,5 +24,9 @@ public class ProtoUICampaignStart : MonoBehaviour
         {
             SceneManager.LoadScene("Game");
         }
+        else
+        {
+            Debug.Log("No Lives Left!!!");
+        }
     }
 }

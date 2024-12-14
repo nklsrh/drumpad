@@ -5107,7 +5107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c47986f3d77cc454e9c24c1f185d9364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDebug: 1
+  isDebug: 0
   debugOverrideLevelName: feelgoodinc-medium-1
   campaignFileName: campaign-1
 --- !u!114 &1111451051

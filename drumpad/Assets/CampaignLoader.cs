@@ -82,7 +82,7 @@ public class CampaignLoader : MonoBehaviour
         else
         {
             Debug.Log("All levels completed!");
-            return new GameLevelData();
+            return LevelLoader.LoadLevel(currentCampaign.levels[currentCampaign.levels.Count - 1]);
         }
     }
 

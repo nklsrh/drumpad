@@ -15,10 +15,16 @@ public class ProtoTileGrab : MonoBehaviour
     private PointerEventData currentData;
     private ProtoBtnClipPlay hoveringBtn;
     
-    void Start()
+    void OnEnable()
     {
         ProtoBtnClipDragUI.OnDragBegin += OnDragBegin;
         ProtoBtnClipDragUI.OnDragEnd += OnDragEnd;
+    }
+
+    void OnDisable()
+    {
+        ProtoBtnClipDragUI.OnDragBegin -= OnDragBegin;
+        ProtoBtnClipDragUI.OnDragEnd -= OnDragEnd;
     }
 
     private void OnDragBegin(ProtoBtnClipDragUI arg1, PointerEventData arg2)

@@ -105,11 +105,13 @@ public class ProtoGameControl : MonoBehaviour
         panelFail.gameObject.SetActive(false);
         
         CurrencyManager.Instance.SpendCurrency(CurrencyManager.CURRENCY_LIVES, 1);
-        SceneManager.LoadScene("MainMenu");
+        Exit();
     }
 
     void Exit()
     {
         AudioClipControl.OnComplete -= OnGameComplete;
+
+        SceneManager.LoadScene("MainMenu");
     }
 }
