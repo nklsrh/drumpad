@@ -1,0 +1,30 @@
+{
+    "songID": "realslim",
+    "startingPoint": 55.0,
+    "clips": [
+        {
+            "startingPoint": 55.0,
+            "duration": 2.0
+        },
+        {
+            "startingPoint": 57.0,
+            "duration": 2.0
+        },
+        {
+            "startingPoint": 59.0,
+            "duration": 2.0
+        },
+        {
+            "startingPoint": 61.0,
+            "duration": 2.0
+        },
+        {
+            "startingPoint": 63.0,
+            "duration": 2.0
+        },
+        {
+            "startingPoint": 65.0,
+            "duration": 2.0
+        }
+    ]
+}

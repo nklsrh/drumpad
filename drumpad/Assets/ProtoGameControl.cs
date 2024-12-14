@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ProtoGameControl : MonoBehaviour
 {
-    public LevelLoader levelLoader;
+    public CampaignLoader campaignLoader;
     public GameObject panelStart;
     public GameObject panelComplete;
 
     public ProtoAudioClipControl AudioClipControl;
+
+    private int level;
 
     // Start is called before the first frame update
     void Start()
@@ -20,10 +23,18 @@ public class ProtoGameControl : MonoBehaviour
 
     public void StartGame()
     {
-        var levelData = levelLoader.LoadLevel();
+        campaignLoader.LoadCampaign(level);
+        var levelData = campaignLoader.CurrentLevel;
         AudioClipControl.StartGame(levelData);
 
         AudioClipControl.OnComplete += OnGameComplete;
+    }
+
+    public void StartNextLevel()
+    {
+        level++;
+        Start();
+        StartGame();
     }
 
     public void OnGameComplete()

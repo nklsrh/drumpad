@@ -44,6 +44,8 @@ public class ProtoAudioClipControl : MonoBehaviour
             randomIndex = RandomiseClips();
         }
 
+        sequence.Clear();
+
         for (int i = 0; i < randomIndex.Length; i++)
         {
             int randomIndexValue = randomIndex[i];

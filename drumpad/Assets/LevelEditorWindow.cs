@@ -98,6 +98,10 @@ public class LevelEditorWindow : EditorWindow
             Directory.CreateDirectory(savePath);
 
         string json = JsonUtility.ToJson(currentLevelData, true);
+        if (!fileName.Contains("."))
+        {
+            fileName = fileName + ".json";
+        }
         File.WriteAllText(Path.Combine(savePath, fileName), json);
         AssetDatabase.Refresh();
         Debug.Log("Level Saved!");
@@ -106,6 +110,10 @@ public class LevelEditorWindow : EditorWindow
     private void LoadLevel()
     {
         string filePath = Path.Combine(savePath, fileName);
+        if (!filePath.Contains("."))
+        {
+            filePath = filePath + ".json";
+        }
         if (File.Exists(filePath))
         {
             string json = File.ReadAllText(filePath);

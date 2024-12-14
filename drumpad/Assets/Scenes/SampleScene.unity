@@ -757,163 +757,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 442105911}
   m_CullTransparentMesh: 1
---- !u!1 &519142162
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 519142163}
-  - component: {fileID: 519142164}
-  - component: {fileID: 519142165}
-  m_Layer: 0
-  m_Name: GAME_Taytay
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &519142163
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519142162}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 114.01466, y: 246.22946, z: -1.4711976}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &519142164
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519142162}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b289c794a0f4f4419f6ccf1beee0646, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameLevelData:
-    songID: 
-    startingPoint: 0
-    clips: []
-  btns:
-  - {fileID: 303230839}
-  - {fileID: 964525061}
-  - {fileID: 1582794440}
-  - {fileID: 955555481}
-  - {fileID: 2008569828}
-  - {fileID: 644359349}
-  - {fileID: 1834054295}
-  - {fileID: 1621484760}
-  - {fileID: 2019770051}
-  audioClip: {fileID: 0}
-  finishSource: {fileID: 519142165}
---- !u!82 &519142165
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519142162}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &598992675
 GameObject:
   m_ObjectHideFlags: 0
@@ -2670,7 +2513,7 @@ GameObject:
   - component: {fileID: 1111451047}
   - component: {fileID: 1111451046}
   - component: {fileID: 1111451048}
-  - component: {fileID: 1111451049}
+  - component: {fileID: 1111451050}
   m_Layer: 0
   m_Name: GAMECONTROL
   m_TagString: Untagged
@@ -2690,7 +2533,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e56e9353f2f3e7c43ab39a7e96ec941d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelLoader: {fileID: 1111451049}
+  campaignLoader: {fileID: 1111451050}
   panelStart: {fileID: 178302241}
   panelComplete: {fileID: 984704621}
   AudioClipControl: {fileID: 804398839}
@@ -2723,7 +2566,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   btnClipDragUIProto: {fileID: 1379560965}
   GameControl: {fileID: 1111451046}
---- !u!114 &1111451049
+--- !u!114 &1111451050
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2732,10 +2575,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1111451045}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c72d0fc531e9b497590a6418384353c8, type: 3}
+  m_Script: {fileID: 11500000, guid: c47986f3d77cc454e9c24c1f185d9364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelFilePath: slimshady-easy-1
+  campaignFileName: campaign-1
+  CurrentLevel:
+    songID: 
+    startingPoint: 0
+    clips: []
 --- !u!1 &1237020208
 GameObject:
   m_ObjectHideFlags: 0
@@ -4160,7 +4007,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1863252512}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1111451046}
+        m_TargetAssemblyTypeName: ProtoGameControl, Assembly-CSharp
+        m_MethodName: StartNextLevel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1863252512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4838,6 +4697,5 @@ SceneRoots:
   - {fileID: 705507995}
   - {fileID: 1013064034}
   - {fileID: 915145510}
-  - {fileID: 519142163}
   - {fileID: 804398840}
   - {fileID: 1111451047}

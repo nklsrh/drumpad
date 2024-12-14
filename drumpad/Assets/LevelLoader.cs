@@ -3,8 +3,7 @@ using System.IO;
 
 public class LevelLoader : MonoBehaviour
 {
-    public string levelFilePath = "slimshady-easy-1";
-    public GameLevelData LoadLevel()
+    public GameLevelData LoadLevel(string levelFilePath)
     {
         var text = Resources.Load<TextAsset>("Levels/" + levelFilePath);
         if (text != null)
