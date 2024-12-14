@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ProtoGameControl : MonoBehaviour
 {
-
+    public LevelLoader levelLoader;
     public GameObject panelStart;
     public GameObject panelComplete;
 
@@ -16,10 +16,12 @@ public class ProtoGameControl : MonoBehaviour
         panelComplete.SetActive(false);
         panelStart.SetActive(true);
     }
+    
 
     public void StartGame()
     {
-        AudioClipControl.StartGame();
+        var levelData = levelLoader.LoadLevel();
+        AudioClipControl.StartGame(levelData);
 
         AudioClipControl.OnComplete += OnGameComplete;
     }

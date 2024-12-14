@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class ProtoAudioClipControl : MonoBehaviour
 {
+    [HideInInspector]
     public GameLevelData gameLevelData;
     public ProtoBtnClipPlay[] btns;
 
@@ -22,8 +23,10 @@ public class ProtoAudioClipControl : MonoBehaviour
 
     public event Action OnComplete;
 
-    public void StartGame()
+    public void StartGame(GameLevelData gameLevelData)
     {
+        this.gameLevelData = gameLevelData;
+
         StartCoroutine(WaitThenStart());
     }
 
@@ -49,7 +52,7 @@ public class ProtoAudioClipControl : MonoBehaviour
             randomIndex[randomIndexValue] = temp;
         }
         
-        for (int i = 0; i < btns.Length; i++)
+        for (int i = 0; i < randomIndex.Length; i++)
         {
             int randomIndexValue = randomIndex[i];
             AddClipToSequence(randomIndexValue);
@@ -83,10 +86,17 @@ public class ProtoAudioClipControl : MonoBehaviour
     {
         for (int i = 0; i < btns.Length; i++)
         {
-            btns[i].gameObject.SetActive(true);
-            btns[i].SetLevelData(gameLevelData);
-            btns[i].SetData(audioClip, sequence[i]);
-            btns[i].SetAction(PlaySound);
+            if (sequence.Count > i)
+            {
+                btns[i].gameObject.SetActive(true);
+                btns[i].SetLevelData(gameLevelData);
+                btns[i].SetData(audioClip, sequence[i]);
+                btns[i].SetAction(PlaySound);
+            }
+            else
+            {
+                btns[i].gameObject.SetActive(false);
+            }
         }
     }
 
@@ -219,7 +229,7 @@ public struct GameLevelData
 
     public AudioClip GetAudioClip()
     {
-        var clip = Resources.Load<AudioClip>(songID);
+        var clip = Resources.Load<AudioClip>("songs/" + songID);
         return clip;
     }
 }

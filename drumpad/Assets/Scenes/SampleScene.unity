@@ -816,7 +816,7 @@ MonoBehaviour:
   - {fileID: 1834054295}
   - {fileID: 1621484760}
   - {fileID: 2019770051}
-  finishClip: {fileID: 8300000, guid: ea19711dd93cb114da07f86940e9bd25, type: 3}
+  audioClip: {fileID: 0}
   finishSource: {fileID: 519142165}
 --- !u!82 &519142165
 AudioSource:
@@ -1432,7 +1432,7 @@ GameObject:
   - component: {fileID: 804398839}
   - component: {fileID: 804398838}
   m_Layer: 0
-  m_Name: GAME_Eminem
+  m_Name: GAME
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1569,7 +1569,10 @@ MonoBehaviour:
   - {fileID: 955555481}
   - {fileID: 2008569828}
   - {fileID: 644359349}
-  finishClip: {fileID: 8300000, guid: 52331e125fa14aa41961712eccee9575, type: 3}
+  - {fileID: 1834054295}
+  - {fileID: 1621484760}
+  - {fileID: 2019770051}
+  audioClip: {fileID: 0}
   finishSource: {fileID: 804398838}
 --- !u!4 &804398840
 Transform:
@@ -2667,8 +2670,9 @@ GameObject:
   - component: {fileID: 1111451047}
   - component: {fileID: 1111451046}
   - component: {fileID: 1111451048}
+  - component: {fileID: 1111451049}
   m_Layer: 0
-  m_Name: GAME
+  m_Name: GAMECONTROL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2686,6 +2690,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e56e9353f2f3e7c43ab39a7e96ec941d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelLoader: {fileID: 1111451049}
   panelStart: {fileID: 178302241}
   panelComplete: {fileID: 984704621}
   AudioClipControl: {fileID: 804398839}
@@ -2718,6 +2723,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   btnClipDragUIProto: {fileID: 1379560965}
   GameControl: {fileID: 1111451046}
+--- !u!114 &1111451049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1111451045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c72d0fc531e9b497590a6418384353c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelFilePath: slimshady-easy-1
 --- !u!1 &1237020208
 GameObject:
   m_ObjectHideFlags: 0
