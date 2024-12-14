@@ -6,30 +6,35 @@ using UnityEngine.UIElements;
 public class ProtoGameControl : MonoBehaviour
 {
     public CampaignLoader campaignLoader;
-    public GameObject panelStart;
+    public ProtoUIPanelStart panelStart;
     public GameObject panelComplete;
+    public GameObject panelFail;
 
     public ProtoAudioClipControl AudioClipControl;
-
-    private int level;
 
     // Start is called before the first frame update
     void Start()
     {
         panelComplete.SetActive(false);
-        panelStart.SetActive(true);
+        panelStart.gameObject.SetActive(true);
+        panelStart.Setup();
     }
-    
 
-    public void StartGame()
+    public GameLevelData LoadGameLevelDataFromProgress()
     {
         campaignLoader.LoadCampaign();
         var level = campaignLoader.StartNextLevel();
 
         if (level.IsEmpty())
         {
-            return;
+            return new GameLevelData();
         }
+        return level;
+    }
+
+    public void StartGame()
+    {
+        var level = LoadGameLevelDataFromProgress();
 
         AudioClipControl.StartGame(level);
 
@@ -43,11 +48,18 @@ public class ProtoGameControl : MonoBehaviour
         StartGame();
     }
 
-    public void OnGameComplete()
+    public void OnGameComplete(bool isWon)
     {
         AudioClipControl.OnComplete -= OnGameComplete;
         
-        panelComplete.SetActive(true);
+        if (isWon)
+        {
+            panelComplete.SetActive(true);
+        }
+        else
+        {
+            panelFail.SetActive(true);
+        }
     }
 
     public void InsertBtnHere(ProtoBtnClipDragUI btn, ProtoBtnClipPlay insertBefore)

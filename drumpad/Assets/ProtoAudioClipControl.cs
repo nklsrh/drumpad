@@ -21,11 +21,16 @@ public class ProtoAudioClipControl : MonoBehaviour
     public static event Action OnPlayTestSequence;
     private List<StructBtnData> sequence = new List<StructBtnData>();
 
-    public event Action OnComplete;
+    public int movesTaken;
+
+    public event Action<ProtoAudioClipControl> OnStart;
+    public event Action<ProtoAudioClipControl> OnMove;
+    public event Action<bool> OnComplete;
 
     public void StartGame(GameLevelData gameLevelData)
     {
         this.gameLevelData = gameLevelData;
+        movesTaken = 0;
 
         StartCoroutine(WaitThenStart());
     }
@@ -56,6 +61,8 @@ public class ProtoAudioClipControl : MonoBehaviour
 
         // just in case some fuckwit set up a broken level that automatically wins (1 clip or some shit)
         CheckCompleteAndFinish();
+
+        OnStart?.Invoke(this);
     }
 
     bool CheckRandomness(int[] randomIndex)
@@ -204,7 +211,7 @@ public class ProtoAudioClipControl : MonoBehaviour
         
             if (isCorrect && i == sequence.Count - 2)
             {
-                OnComplete?.Invoke();
+                OnComplete?.Invoke(true);
             }
         }
     }
@@ -250,7 +257,34 @@ public class ProtoAudioClipControl : MonoBehaviour
         
         // then populate the same butttons with the new order
         SetButtons();
+        AddMove();
         CheckCompleteAndFinish();
+    }
+
+    private void AddMove()
+    {
+        movesTaken++;
+        if (OnMove != null)
+        {
+            OnMove(this);
+        }
+        CheckMovesOver();
+    }
+
+    private void CheckMovesOver()
+    {
+        if (movesTaken > gameLevelData.moves)
+        {
+            GameOver();
+        }
+    }
+
+    private void GameOver()
+    {
+        if (OnComplete != null)
+        {
+            OnComplete.Invoke(false);
+        }
     }
 
     bool CheckCompleteAndFinish()
@@ -265,38 +299,4 @@ public class ProtoAudioClipControl : MonoBehaviour
         }
         return false;
     }
-}
-
-[Serializable]
-public struct GameLevelData
-{
-    public string songID;
-    public float startingPoint;
-    public List<GameClipData> clips;
-    public int moves;
-    public enum eGameType
-    {
-        SongClips = 0,
-        AlbumArt,        
-    }
-    public eGameType gameType;
-
-    public AudioClip GetAudioClip()
-    {
-        var clip = Resources.Load<AudioClip>("songs/" + songID);
-        return clip;
-    }
-
-    internal bool IsEmpty()
-    {
-        return string.IsNullOrEmpty(songID);
-    }
-}
-
-[Serializable]
-public struct GameClipData
-{
-    [HideInInspector]
-    public float startingPoint;
-    public float duration;
 }
