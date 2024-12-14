@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEditor.PackageManager;
 using UnityEngine;
@@ -23,6 +24,7 @@ public class ProtoBtnClipPlay : MonoBehaviour
     public bool isHovering;
 
     private GameLevelData gameLevelData;
+    public bool IsSet { get; private set; }
 
     public bool AllowPlayerDragOut
     {
@@ -53,6 +55,7 @@ public class ProtoBtnClipPlay : MonoBehaviour
     public void SetLevelData(GameLevelData gameLevelData)
     {
         this.gameLevelData = gameLevelData;
+        IsSet = false;
     }
 
     public void SetData(AudioClip clip, StructBtnData structBtnData)
@@ -61,6 +64,7 @@ public class ProtoBtnClipPlay : MonoBehaviour
         source.clip = clip;
         index = Data.index;
         actualIndex = Data.actualIndex;
+        IsSet = true;
         SetEnabled(true);
     }
 

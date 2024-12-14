@@ -23,16 +23,22 @@ public class ProtoGameControl : MonoBehaviour
 
     public void StartGame()
     {
-        campaignLoader.LoadCampaign(level);
-        var levelData = campaignLoader.CurrentLevel;
-        AudioClipControl.StartGame(levelData);
+        campaignLoader.LoadCampaign();
+        var level = campaignLoader.StartNextLevel();
+
+        if (level.IsEmpty())
+        {
+            return;
+        }
+
+        AudioClipControl.StartGame(level);
 
         AudioClipControl.OnComplete += OnGameComplete;
     }
 
     public void StartNextLevel()
     {
-        level++;
+        campaignLoader.CompleteCurrentLevel();
         Start();
         StartGame();
     }

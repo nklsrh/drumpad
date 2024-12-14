@@ -175,7 +175,6 @@ public class ProtoAudioClipControl : MonoBehaviour
                 }
             }
             
-            Debug.Log("Sequence iS " + (isCorrect ? "CORRECT!" : "INCORRECT!"));
 
             return isCorrect;
         }
@@ -184,7 +183,7 @@ public class ProtoAudioClipControl : MonoBehaviour
     
     IEnumerator playAudioSequentially(AudioSource adSource, bool isCorrect)
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.4f);
 
         //1.Loop through each AudioClip
         for (int i = 0; i < sequence.Count; i++)
@@ -256,7 +255,10 @@ public class ProtoAudioClipControl : MonoBehaviour
 
     bool CheckCompleteAndFinish()
     {
-        if (CheckComplete())
+        var isComplete = CheckComplete();
+        Debug.Log("Sequence iS " + (isComplete ? "CORRECT!" : "INCORRECT!"));
+
+        if (isComplete)
         {
             StartCoroutine(playAudioSequentially(finishSource, true));
             return true;
@@ -276,6 +278,11 @@ public struct GameLevelData
     {
         var clip = Resources.Load<AudioClip>("songs/" + songID);
         return clip;
+    }
+
+    internal bool IsEmpty()
+    {
+        return string.IsNullOrEmpty(songID);
     }
 }
 

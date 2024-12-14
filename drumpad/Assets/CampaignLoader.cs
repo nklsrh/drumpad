@@ -1,14 +1,28 @@
 using UnityEngine;
-using System.Collections.Generic;
 
 public class CampaignLoader : MonoBehaviour
 {
-    public string campaignFileName = "Campaign1"; // Name of the campaign JSON file without extension
+    public string campaignFileName = "campaign-1"; // Name of the campaign JSON file without extension
+
+    private LevelLoader levelLoader;
     private Campaign currentCampaign;
+    private CampaignProgressManager progressManager;
 
-    public GameLevelData CurrentLevel;
+    private void Awake()
+    {
+        progressManager = GetComponent<CampaignProgressManager>();
+        if (progressManager == null)
+        {
+            progressManager = gameObject.AddComponent<CampaignProgressManager>();
+        }
+        levelLoader = GetComponent<LevelLoader>();
+        if (levelLoader == null)
+        {
+            levelLoader = gameObject.AddComponent<LevelLoader>();
+        }
+    }
 
-    public void LoadCampaign(int level)
+    public void LoadCampaign()
     {
         // Load campaign JSON from Resources
         TextAsset campaignJson = Resources.Load<TextAsset>($"Campaigns/{campaignFileName}");
@@ -22,25 +36,36 @@ public class CampaignLoader : MonoBehaviour
         currentCampaign = JsonUtility.FromJson<Campaign>(campaignJson.text);
         Debug.Log($"Campaign Loaded: {currentCampaign.levels.Count} levels");
 
-        // Load each level
-        // foreach (var levelFileName in currentCampaign.levels)
-        // {
-        //     Debug.Log($"Loading level: {levelFileName}");
-        //     LoadLevel(levelFileName);
-        // }
-        LoadLevel(currentCampaign.levels[level]);
+        // Load player progress for this campaign
+        progressManager.LoadProgress(campaignFileName);
     }
 
-    private void LoadLevel(string levelFileName)
+    public GameLevelData StartNextLevel()
     {
-        TextAsset levelJson = Resources.Load<TextAsset>($"Levels/{levelFileName}");
-        if (levelJson == null)
+        int currentLevelIndex = progressManager.GetCurrentLevelIndex();
+        if (currentLevelIndex < currentCampaign.levels.Count)
         {
-            Debug.LogError($"Level JSON file not found in Resources: {levelFileName}");
-            return;
-        }
+            string nextLevel = currentCampaign.levels[currentLevelIndex];
+            Debug.Log($"Starting level: {nextLevel}");
+            // Logic to load the level
 
-        CurrentLevel = JsonUtility.FromJson<GameLevelData>(levelJson.text);
-        Debug.Log($"Loaded level: {levelFileName} with songID {CurrentLevel.songID}");
+            return levelLoader.LoadLevel(nextLevel);            
+        }
+        else
+        {
+            Debug.Log("All levels completed!");
+            return new GameLevelData();
+        }
+    }
+
+    public void CompleteCurrentLevel()
+    {
+        int currentLevelIndex = progressManager.GetCurrentLevelIndex();
+        if (currentLevelIndex < currentCampaign.levels.Count)
+        {
+            string completedLevel = currentCampaign.levels[currentLevelIndex];
+            Debug.Log($"Complete Level {completedLevel}");
+            progressManager.CompleteLevel(completedLevel);
+        }
     }
 }

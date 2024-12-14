@@ -1275,7 +1275,7 @@ GameObject:
   - component: {fileID: 804398839}
   - component: {fileID: 804398838}
   m_Layer: 0
-  m_Name: GAME
+  m_Name: AudioAndUIControl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2514,6 +2514,8 @@ GameObject:
   - component: {fileID: 1111451046}
   - component: {fileID: 1111451048}
   - component: {fileID: 1111451050}
+  - component: {fileID: 1111451051}
+  - component: {fileID: 1111451052}
   m_Layer: 0
   m_Name: GAMECONTROL
   m_TagString: Untagged
@@ -2579,10 +2581,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   campaignFileName: campaign-1
-  CurrentLevel:
-    songID: 
-    startingPoint: 0
-    clips: []
+--- !u!114 &1111451051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1111451045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2891daf4c8a243888793ad03951a18a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1111451052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1111451045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c72d0fc531e9b497590a6418384353c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1237020208
 GameObject:
   m_ObjectHideFlags: 0

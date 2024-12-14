@@ -23,6 +23,8 @@ public class ProtoTileGrab : MonoBehaviour
 
     private void OnDragBegin(ProtoBtnClipDragUI arg1, PointerEventData arg2)
     {
+        if (!arg1.btn.IsSet) return;
+
         btn = arg1;
         currentData = arg2;
         btnClipDragUIProto.btn.SetData(GameControl.AudioClipControl.audioClip, arg1.btn.Data);
@@ -30,7 +32,7 @@ public class ProtoTileGrab : MonoBehaviour
 
     private void OnDragEnd(ProtoBtnClipDragUI arg1, PointerEventData arg2)
     {
-        if (hoveringBtn)
+        if (hoveringBtn && arg1.btn != hoveringBtn && hoveringBtn.isActiveAndEnabled && arg1.isActiveAndEnabled)
         {
             hoveringBtn.isHovering = false;
             // do the swap!
@@ -57,23 +59,30 @@ public class ProtoTileGrab : MonoBehaviour
             // Check if the mouse is hovering over any of the buttons (to insert into the correct position)
             if (GameControl)
             {
-                foreach (var btn in GameControl.AudioClipControl.btns)
+                bool anyHover = false;
+                foreach (var b in GameControl.AudioClipControl.btns)
                 {
-                    if (btn.AllowPlayerDragOut)
+                    if (b == btn) continue;
+
+                    if (b.AllowPlayerDragOut && b.isActiveAndEnabled)
                     {
-                        btn.isHovering = (RectTransformUtility.RectangleContainsScreenPoint(btn.GetComponent<RectTransform>(),
+                        b.isHovering = (RectTransformUtility.RectangleContainsScreenPoint(b.GetComponent<RectTransform>(),
                             currentData.position));
                     }
                     else
                     {
-                        btn.isHovering = false;
-                        hoveringBtn = null;
+                        b.isHovering = false;
                     }
                     
-                    if (btn.isHovering)
+                    if (b.isHovering)
                     {
-                        hoveringBtn = btn;
+                        hoveringBtn = b;
+                        anyHover = true;
                     }
+                }
+                if (!anyHover)
+                {
+                    hoveringBtn = null;
                 }
             }
         }
