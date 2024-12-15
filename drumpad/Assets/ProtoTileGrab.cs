@@ -34,6 +34,7 @@ public class ProtoTileGrab : MonoBehaviour
         btn = arg1;
         currentData = arg2;
         btnClipDragUIProto.btn.SetData(GameControl.AudioClipControl.audioClip, arg1.btn.Data);
+        btnClipDragUIProto.btn.Grab();
     }
 
     private void OnDragEnd(ProtoBtnClipDragUI arg1, PointerEventData arg2)

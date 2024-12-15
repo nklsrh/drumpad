@@ -18,6 +18,7 @@ public class ProtoBtnClipPlay : MonoBehaviour
     public bool isHovering;
 
     private GameLevelData gameLevelData;
+
     public bool IsSet { get; private set; }
 
     public bool AllowPlayerDragOut
@@ -31,6 +32,9 @@ public class ProtoBtnClipPlay : MonoBehaviour
     }
     
     public static event Action<StructClipPlayed> OnClipPlayed;
+    public static event Action<ProtoBtnClipPlay, float, float> OnSlideIn;
+    public static event Action<ProtoBtnClipPlay> OnClipGrabbed;
+    public static event Action<ProtoBtnClipPlay> OnClipDropped;
 
     void Start()
     {
@@ -60,6 +64,17 @@ public class ProtoBtnClipPlay : MonoBehaviour
         actualIndex = Data.actualIndex;
         IsSet = true;
         SetEnabled(true);
+    }
+
+    public void SlideIn(float delay, float distance)
+    {
+        OnSlideIn?.Invoke(this, delay, distance);
+    }
+
+
+    public void Drop()
+    {
+        OnClipDropped?.Invoke(this);
     }
 
     public void SetAction(Action<int> onClick)
@@ -136,6 +151,11 @@ public class ProtoBtnClipPlay : MonoBehaviour
     public void SetEnabled(bool e)
     {
         btn.interactable = e;
+    }
+
+    internal void Grab()
+    {
+        OnClipGrabbed?.Invoke(this);
     }
 }
 

@@ -257,6 +257,13 @@ public class ProtoAudioClipControl : MonoBehaviour
         
         // then populate the same butttons with the new order
         SetButtons();
+
+        btns[newIndex].Drop();
+        for (int i = newIndex + 1; i < sequence.Count; i++)
+        {
+            btns[i].SlideIn(0.05f * (i - newIndex + 1), i == newIndex ? -120 : -120);
+        }
+
         AddMove();
         CheckCompleteAndFinish();
     }
