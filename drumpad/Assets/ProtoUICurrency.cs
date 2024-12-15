@@ -20,8 +20,17 @@ public class ProtoUICurrency : MonoBehaviour
         CurrencyManager.OnCurrencyChanged -= OnCurrencyChanged;
     }
 
+    void Start()
+    {
+        if (CurrencyManager.Instance == null) return;
+
+        OnCurrencyChanged(currencyName, CurrencyManager.Instance.GetCurrencyAmount(currencyName), 0);
+    }
+
     private void Update()
     {
+        if (CurrencyManager.Instance == null) return;
+
         var currency = CurrencyManager.Instance.GetCurrency(currencyName);
         // Update regeneration text if applicable
         if (CurrencyManager.Instance.GetCurrencyAmount(currencyName) < currency.maxAmount)

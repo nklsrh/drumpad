@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using System.Collections;
 
 public class CurrencyManager : MonoBehaviour
 {
@@ -57,6 +58,7 @@ public class CurrencyManager : MonoBehaviour
                 AddCurrency(CURRENCY_LIVES, 5, 5, true, 5);
             }
 
+            StartCoroutine(WaitThenRefresh());
             RefreshAllCurrencies();
         }
         else
@@ -64,7 +66,17 @@ public class CurrencyManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    /// <summary>
+
+    private IEnumerator WaitThenRefresh()
+    {
+        yield return null;
+        yield return null;
+        RefreshAllCurrencies();
+
+        // im lazy as fuck sorrynotsorry
+    }
+
+    /// <summary>   
     /// Refreshes all currencies.
     /// </summary>
     public void RefreshAllCurrencies()

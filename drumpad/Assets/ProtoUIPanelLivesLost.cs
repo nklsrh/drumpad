@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,6 +22,14 @@ public class ProtoUIPanelLivesLost : MonoBehaviour
     public void Setup(StructPanelLivesLost param)
     {
         this.param = param;
+
+        bool hasLives = true;
+        if (CurrencyManager.Instance.GetCurrencyAmount(CurrencyManager.CURRENCY_LIVES) == 0)
+        {
+            hasLives = false;
+        }
+        
+        btnRetry.gameObject.SetActive(hasLives);
     }
 
     private void OnRetry()
