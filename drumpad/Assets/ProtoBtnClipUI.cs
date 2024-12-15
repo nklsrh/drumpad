@@ -15,6 +15,7 @@ public class ProtoBtnClipUI : MonoBehaviour
     public Color colorStarter;
     public Color colorStandard;
     public float multiplierPlaying = 0.25f;
+    public Image progress;
 
     Tween slidingTween;
     
@@ -97,5 +98,11 @@ public class ProtoBtnClipUI : MonoBehaviour
     void Update()
     {
         SetColor();
+
+        if (progress)
+        {
+            progress.gameObject.SetActive(btn.isClipPlaying);
+            progress.fillAmount = btn.playTimeProgress;
+        }
     }
 }

@@ -9,6 +9,8 @@ public class ProtoBtnClipPlay : MonoBehaviour
 
     public bool isClipPlaying = false;
 
+    public float playTimeProgress;
+
     public event Action onPlay;
     
     private Action<int> onClick;
@@ -145,9 +147,16 @@ public class ProtoBtnClipPlay : MonoBehaviour
     void Update()
     {
         // check if source is playing
-        if (isClipPlaying && !source.isPlaying)
+        if (isClipPlaying)
         {
-            isClipPlaying = false;
+            if (!source.isPlaying)
+            {
+                isClipPlaying = false;
+            }
+            else
+            {
+                playTimeProgress = (source.time - gameLevelData.clips[Data.actualIndex].startingPoint) / gameLevelData.clips[Data.actualIndex].duration;
+            }
         }
     }
 
