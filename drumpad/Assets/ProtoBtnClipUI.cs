@@ -15,6 +15,8 @@ public class ProtoBtnClipUI : MonoBehaviour
     public Color colorStarter;
     public Color colorStandard;
     public float multiplierPlaying = 0.25f;
+
+    Tween slidingTween;
     
     void OnEnable()
     {
@@ -22,6 +24,7 @@ public class ProtoBtnClipUI : MonoBehaviour
         ProtoBtnClipPlay.OnSlideIn += OnSlideIn;
         ProtoBtnClipPlay.OnClipGrabbed += OnGrabbed;
         ProtoBtnClipPlay.OnClipDropped += OnDropped;
+        ProtoBtnClipPlay.OnClipToggleShow += OnToggleShow;
     }
 
     void OnDisable()
@@ -30,12 +33,26 @@ public class ProtoBtnClipUI : MonoBehaviour
         ProtoBtnClipPlay.OnSlideIn -= OnSlideIn;
         ProtoBtnClipPlay.OnClipGrabbed -= OnGrabbed;
         ProtoBtnClipPlay.OnClipDropped -= OnDropped;
+        ProtoBtnClipPlay.OnClipToggleShow -= OnToggleShow;
     }
 
     void SetColor()
     {
         btnImg.color = btn.isHovering ? Color.black : (btn.isClipPlaying ? Color.white : (btn.IsStarter ? colorStarter : colorStandard));
         btnText.text = btn.isClipPlaying ? "||" : (btn.IsStarter ? "START>" : btn.Data.assignedTileImageIndex + "");
+
+        if (!slidingTween.IsActive())
+        {
+            if (btn.isHovering)
+            {
+                var l = btnImg.transform.localPosition;
+                btnImg.transform.localPosition = Vector3.Lerp(l, new Vector3(40, l.y, l.z), 10 * Time.deltaTime);
+            }
+            else
+            {
+                btnImg.transform.localPosition = Vector3.zero;
+            }
+        }
     }
     private void OnPlay()
     {
@@ -49,7 +66,7 @@ public class ProtoBtnClipUI : MonoBehaviour
         DOVirtual.DelayedCall(delay, () =>
         {
             btnImg.transform.localPosition = new Vector3(btnImg.transform.localPosition.x + distance, btnImg.transform.localPosition.y, btnImg.transform.localPosition.z);
-            btnImg.transform.DOLocalMoveX(0, 1f).SetEase(Ease.OutElastic);
+            slidingTween = btnImg.transform.DOLocalMoveX(0, 1f).SetEase(Ease.OutElastic);
         });
     }
 
@@ -65,7 +82,16 @@ public class ProtoBtnClipUI : MonoBehaviour
         if (this.btn != btn) return;
 
         btnImg.transform.localScale = Vector3.one * 0.4f;
-        btnImg.transform.DOScale(Vector3.one * 1f, 0.5f).SetEase(Ease.OutCirc);
+        btnImg.transform.DOScale(Vector3.one * 1f, 0.5f).SetEase(Ease.OutElastic);
+        btnImg.transform.localPosition = new Vector3(-40, 0, 0);
+        btnImg.transform.DOLocalMoveX(0, 0.5f);
+    }
+
+    private void OnToggleShow(ProtoBtnClipPlay play, bool shown)
+    {
+        if (play != this.btn) return;
+
+        btnImg.gameObject.SetActive(shown);
     }
 
     void Update()

@@ -32,6 +32,8 @@ public class ProtoTileGrab : MonoBehaviour
         if (!arg1.btn.IsSet) return;
 
         btn = arg1;
+        btn.btn.ShowHide(false);
+
         currentData = arg2;
         btnClipDragUIProto.btn.SetData(GameControl.AudioClipControl.audioClip, arg1.btn.Data);
         btnClipDragUIProto.btn.Grab();
@@ -51,6 +53,8 @@ public class ProtoTileGrab : MonoBehaviour
         {
             btn.btn.isHovering = false;
         }
+
+        btn.btn.ShowHide(true);
         btn = null;
         hoveringBtn = null;
     }

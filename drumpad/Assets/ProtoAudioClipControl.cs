@@ -57,12 +57,29 @@ public class ProtoAudioClipControl : MonoBehaviour
             AddClipToSequence(randomIndexValue);
         }
 
+        SetLevelData();
         SetButtons();
 
         // just in case some fuckwit set up a broken level that automatically wins (1 clip or some shit)
         CheckCompleteAndFinish();
 
         OnStart?.Invoke(this);
+    }
+
+    private void SetLevelData()
+    {
+        for (int i = 0; i < btns.Length; i++)
+        {
+            if (sequence.Count > i)
+            {
+                btns[i].gameObject.SetActive(true);
+                btns[i].SetLevelData(gameLevelData);
+            }
+            else
+            {
+                btns[i].gameObject.SetActive(false);
+            }
+        }
     }
 
     bool CheckRandomness(int[] randomIndex)
@@ -131,7 +148,6 @@ public class ProtoAudioClipControl : MonoBehaviour
             if (sequence.Count > i)
             {
                 btns[i].gameObject.SetActive(true);
-                btns[i].SetLevelData(gameLevelData);
                 btns[i].SetData(audioClip, sequence[i]);
                 btns[i].SetAction(PlaySound);
             }
@@ -264,8 +280,11 @@ public class ProtoAudioClipControl : MonoBehaviour
             btns[i].SlideIn(0.05f * (i - newIndex + 1), i == newIndex ? -120 : -120);
         }
 
-        AddMove();
-        CheckCompleteAndFinish();
+        bool isFinished = CheckCompleteAndFinish();
+        if (!isFinished)
+        {
+            AddMove();
+        }
     }
 
     private void AddMove()

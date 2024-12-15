@@ -35,6 +35,7 @@ public class ProtoBtnClipPlay : MonoBehaviour
     public static event Action<ProtoBtnClipPlay, float, float> OnSlideIn;
     public static event Action<ProtoBtnClipPlay> OnClipGrabbed;
     public static event Action<ProtoBtnClipPlay> OnClipDropped;
+    public static event Action<ProtoBtnClipPlay, bool> OnClipToggleShow;
 
     void Start()
     {
@@ -54,6 +55,8 @@ public class ProtoBtnClipPlay : MonoBehaviour
     {
         this.gameLevelData = gameLevelData;
         IsSet = false;
+
+        SlideIn(UnityEngine.Random.Range(0, 1), UnityEngine.Random.Range(-100, 100));
     }
 
     public void SetData(AudioClip clip, StructBtnData structBtnData)
@@ -151,6 +154,11 @@ public class ProtoBtnClipPlay : MonoBehaviour
     public void SetEnabled(bool e)
     {
         btn.interactable = e;
+    }
+
+    public void ShowHide(bool shown = false)
+    {
+        OnClipToggleShow?.Invoke(this, shown);
     }
 
     internal void Grab()
