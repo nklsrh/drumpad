@@ -39,7 +39,7 @@ public class ProtoAudioClipControl : MonoBehaviour
     {
         LoadLevelData(gameLevelData);
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.01f);
         
         var randomIndex = RandomiseClips();
         int loops = 1000;

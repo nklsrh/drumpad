@@ -11,6 +11,7 @@ public class ProtoGameControl : MonoBehaviour
     public ProtoUIPanelStart panelStart;
     public GameObject panelComplete;
     public ProtoUIPanelFail panelFail;
+    public ProtoUIPanelLivesLost panelLivesLost;
 
     public ProtoAudioClipControl AudioClipControl;
 
@@ -22,6 +23,7 @@ public class ProtoGameControl : MonoBehaviour
 
     private void ResetUI()
     {
+        panelLivesLost.gameObject.SetActive(false);
         panelComplete.SetActive(false);
         panelStart.gameObject.SetActive(true);
         panelStart.Setup();
@@ -105,7 +107,20 @@ public class ProtoGameControl : MonoBehaviour
         panelFail.gameObject.SetActive(false);
         
         CurrencyManager.Instance.SpendCurrency(CurrencyManager.CURRENCY_LIVES, 1);
-        Exit();
+
+        panelLivesLost.Setup(new StructPanelLivesLost
+        {
+            onRetry = Retry,
+            onClose = Exit
+        });
+        panelLivesLost.gameObject.SetActive(true);
+        panelLivesLost.Show();
+    }
+
+    void Retry()
+    {
+        ResetUI();
+        StartGame();
     }
 
     void Exit()
