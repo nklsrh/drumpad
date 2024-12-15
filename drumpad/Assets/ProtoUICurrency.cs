@@ -35,13 +35,17 @@ public class ProtoUICurrency : MonoBehaviour
                     regenerationText.text = $"Ends in: {timeLeft.Minutes:D2}:{timeLeft.Seconds:D2}";
                 }
             }
-            else
+            else if (regenerationText != null)
             {
                 var timeLeft = CurrencyManager.Instance.GetTimeUntilNextRegeneration(currencyName);
-                if (regenerationText != null)
+                if (timeLeft.TotalSeconds > 0)
                 {
                     regenerationText.gameObject.SetActive(true);
                     regenerationText.text = $"Next in: {timeLeft.Minutes:D2}:{timeLeft.Seconds:D2}";
+                }
+                else
+                {
+                    regenerationText.gameObject.SetActive(false);
                 }
             }
         }

@@ -161,9 +161,9 @@ public class ProtoAudioClipControl : MonoBehaviour
         sequence.Add(new StructBtnData()
         {
             index = sequence.Count,
-            locked
-             = shouldFreezeIfFirst && sequence.Count == 0,
+            locked = shouldFreezeIfFirst && sequence.Count == 0,
             actualIndex = randomIndex,
+            assignedTileImageIndex = UnityEngine.Random.Range(0,192)
         });
     }
 
