@@ -44,6 +44,19 @@ public class ProtoBtnClipPlay : MonoBehaviour
         btn.onClick.AddListener(ClickPlay);
     }
 
+    void OnEnable()
+    {
+        OnClipDropped += OnClipDroppedCheckPlaying;
+    }
+
+    private void OnClipDroppedCheckPlaying(ProtoBtnClipPlay play)
+    {
+        if (isClipPlaying)
+        {
+            Stop();
+        }
+    }
+
     private void ClickPlay()
     {
         if (onClick == null)

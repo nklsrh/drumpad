@@ -18,5 +18,8 @@
             "startingPoint": 12.0,
             "duration": 2.0
         }
-    ]
+    ],
+    "moves": 10,
+    "rewardCoins": 0,
+    "gameType": 0
 }

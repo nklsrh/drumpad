@@ -58,15 +58,17 @@ public class LevelEditorWindow : EditorWindow
         {
             var i = selectedLevelIndex;
             selectedLevelIndex = EditorGUILayout.Popup(selectedLevelIndex, availableLevels);
-            if (selectedLevelIndex != i)
-            {
-                LoadSelectedLevel();
-            }
             currentLevelFileName = availableLevels[selectedLevelIndex];
         }
         else
         {
             EditorGUILayout.HelpBox("No levels found in 'Assets/Resources/Levels'. Add JSON files to the folder.", MessageType.Warning);
+        }
+
+        // Load selected level
+        if (GUILayout.Button("Load Level"))
+        {
+            LoadSelectedLevel();
         }
         GUILayout.EndHorizontal();
 

@@ -1,0 +1,45 @@
+{
+    "songID": "gowest",
+    "startingPoint": 142.0,
+    "clips": [
+        {
+            "startingPoint": 142.0,
+            "duration": 3.0
+        },
+        {
+            "startingPoint": 145.0,
+            "duration": 2.4000000953674318
+        },
+        {
+            "startingPoint": 147.39999389648438,
+            "duration": 3.5
+        },
+        {
+            "startingPoint": 150.89999389648438,
+            "duration": 3.200000047683716
+        },
+        {
+            "startingPoint": 154.09999084472657,
+            "duration": 3.0
+        },
+        {
+            "startingPoint": 157.09999084472657,
+            "duration": 3.0
+        },
+        {
+            "startingPoint": 160.09999084472657,
+            "duration": 3.0
+        },
+        {
+            "startingPoint": 163.09999084472657,
+            "duration": 4.0
+        },
+        {
+            "startingPoint": 167.09999084472657,
+            "duration": 4.0
+        }
+    ],
+    "moves": 13,
+    "rewardCoins": 150,
+    "gameType": 0
+}

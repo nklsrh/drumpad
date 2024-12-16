@@ -1,0 +1,25 @@
+{
+    "songID": "song2",
+    "startingPoint": 44.0,
+    "clips": [
+        {
+            "startingPoint": 44.0,
+            "duration": 2.4000000953674318
+        },
+        {
+            "startingPoint": 46.400001525878909,
+            "duration": 2.4000000953674318
+        },
+        {
+            "startingPoint": 48.80000305175781,
+            "duration": 3.0
+        },
+        {
+            "startingPoint": 51.80000305175781,
+            "duration": 4.0
+        }
+    ],
+    "moves": 9,
+    "rewardCoins": 0,
+    "gameType": 0
+}

@@ -1,0 +1,33 @@
+{
+    "songID": "symphony",
+    "startingPoint": 104.5,
+    "clips": [
+        {
+            "startingPoint": 104.5,
+            "duration": 2.4000000953674318
+        },
+        {
+            "startingPoint": 106.9000015258789,
+            "duration": 2.4000000953674318
+        },
+        {
+            "startingPoint": 109.30000305175781,
+            "duration": 3.0
+        },
+        {
+            "startingPoint": 112.30000305175781,
+            "duration": 3.0
+        },
+        {
+            "startingPoint": 115.30000305175781,
+            "duration": 3.0
+        },
+        {
+            "startingPoint": 118.30000305175781,
+            "duration": 3.0
+        }
+    ],
+    "moves": 20,
+    "rewardCoins": 150,
+    "gameType": 0
+}

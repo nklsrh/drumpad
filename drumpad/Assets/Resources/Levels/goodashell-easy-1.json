@@ -1,0 +1,33 @@
+{
+    "songID": "goodashell",
+    "startingPoint": 12.0,
+    "clips": [
+        {
+            "startingPoint": 12.0,
+            "duration": 2.4000000953674318
+        },
+        {
+            "startingPoint": 14.399999618530274,
+            "duration": 2.4000000953674318
+        },
+        {
+            "startingPoint": 16.799999237060548,
+            "duration": 2.4000000953674318
+        },
+        {
+            "startingPoint": 19.19999885559082,
+            "duration": 3.0
+        },
+        {
+            "startingPoint": 22.19999885559082,
+            "duration": 2.0
+        },
+        {
+            "startingPoint": 24.19999885559082,
+            "duration": 2.0
+        }
+    ],
+    "moves": 26,
+    "rewardCoins": 150,
+    "gameType": 0
+}

@@ -1,0 +1,33 @@
+{
+    "songID": "youngwildfree",
+    "startingPoint": 125.4000015258789,
+    "clips": [
+        {
+            "startingPoint": 125.4000015258789,
+            "duration": 3.0
+        },
+        {
+            "startingPoint": 128.39999389648438,
+            "duration": 4.0
+        },
+        {
+            "startingPoint": 132.39999389648438,
+            "duration": 3.0
+        },
+        {
+            "startingPoint": 135.39999389648438,
+            "duration": 3.0
+        },
+        {
+            "startingPoint": 138.39999389648438,
+            "duration": 3.0
+        },
+        {
+            "startingPoint": 141.39999389648438,
+            "duration": 3.0
+        }
+    ],
+    "moves": 13,
+    "rewardCoins": 150,
+    "gameType": 0
+}

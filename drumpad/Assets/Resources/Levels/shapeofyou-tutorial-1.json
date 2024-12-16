@@ -1,0 +1,21 @@
+{
+    "songID": "shapeofyou",
+    "startingPoint": 0.0,
+    "clips": [
+        {
+            "startingPoint": 0.0,
+            "duration": 2.4000000953674318
+        },
+        {
+            "startingPoint": 2.4000000953674318,
+            "duration": 2.4000000953674318
+        },
+        {
+            "startingPoint": 4.800000190734863,
+            "duration": 2.4000000953674318
+        }
+    ],
+    "moves": 30,
+    "rewardCoins": 150,
+    "gameType": 0
+}
