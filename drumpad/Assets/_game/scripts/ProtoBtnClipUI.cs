@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class ProtoBtnClipUI : MonoBehaviour
 {
     public Image btnImg;
+    public Image iconImg;
     public TextMeshProUGUI btnText;
 
     public ProtoBtnClipPlay btn;
@@ -17,7 +18,17 @@ public class ProtoBtnClipUI : MonoBehaviour
     public float multiplierPlaying = 0.25f;
     public Image progress;
 
+    public Sprite[] spriteOptions;
+    public Sprite[] iconOptions;
+
+    public Sprite spriteStartBg;
+    public Sprite spriteStartIcon;
+
     Tween slidingTween;
+
+    int assignedTileImageIndex;
+    int bgIndex;
+    int iconIndex;
     
     void OnEnable()
     {
@@ -37,10 +48,36 @@ public class ProtoBtnClipUI : MonoBehaviour
         ProtoBtnClipPlay.OnClipToggleShow -= OnToggleShow;
     }
 
+    public static void GenerateCombination(int assignedRandomIndex, int backgroundColorCount, int iconCount, out int backgroundColorIndex, out int iconIndex)
+    {
+        backgroundColorIndex = assignedRandomIndex % backgroundColorCount; // Maps to backgroundColorIndex
+        iconIndex = (assignedRandomIndex / backgroundColorCount) % iconCount; // Maps to iconIndex
+    }
+
     void SetColor()
     {
-        btnImg.color = btn.isHovering ? Color.black : (btn.isClipPlaying ? Color.white : (btn.IsStarter ? colorStarter : colorStandard));
-        btnText.text = btn.isClipPlaying ? "||" : (btn.IsStarter ? "START>" : btn.Data.assignedTileImageIndex + "");
+        if (assignedTileImageIndex != btn.Data.assignedTileImageIndex)
+        {
+            assignedTileImageIndex = btn.Data.assignedTileImageIndex;
+
+            if (btn.IsStarter)
+            {
+                btnImg.sprite = spriteStartBg;
+                iconImg.sprite = spriteStartIcon;
+            }
+            else
+            {
+                GenerateCombination(assignedTileImageIndex, spriteOptions.Length, iconOptions.Length, out bgIndex, out iconIndex);
+
+                btnImg.sprite = spriteOptions[bgIndex];
+                iconImg.sprite = iconOptions[iconIndex];
+            }
+        }
+
+        // btnImg.color = btn.isHovering ? Color.black : (btn.isClipPlaying ? Color.white : (btn.IsStarter ? colorStarter : colorStandard));
+
+        // btnText.text = btn.isClipPlaying ? "||" : (btn.IsStarter ? "START>" : "");
+        iconImg.color = btn.isClipPlaying ? new Color(0.5f, 0.5f, 0.5f, 1) : Color.white;
 
         if (!slidingTween.IsActive())
         {
