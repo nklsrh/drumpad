@@ -48,10 +48,21 @@ public class ProtoBtnClipUI : MonoBehaviour
         ProtoBtnClipPlay.OnClipToggleShow -= OnToggleShow;
     }
 
-    public static void GenerateCombination(int assignedRandomIndex, int backgroundColorCount, int iconCount, out int backgroundColorIndex, out int iconIndex)
+    public static void GenerateUniqueCombination(
+        int assignedRandomIndex,
+        int backgroundColorCount,
+        int iconCount,
+        out int backgroundColorIndex,
+        out int iconIndex)
     {
-        backgroundColorIndex = assignedRandomIndex % backgroundColorCount; // Maps to backgroundColorIndex
-        iconIndex = (assignedRandomIndex / backgroundColorCount) % iconCount; // Maps to iconIndex
+        int totalCombinations = backgroundColorCount * iconCount;
+
+        // Ensure assignedRandomIndex wraps around the total combinations
+        int uniqueIndex = assignedRandomIndex % totalCombinations;
+
+        // Calculate backgroundColorIndex and iconIndex using uniqueIndex
+        backgroundColorIndex = uniqueIndex % backgroundColorCount;
+        iconIndex = uniqueIndex / backgroundColorCount; // Integer division
     }
 
     void SetColor()
@@ -67,7 +78,7 @@ public class ProtoBtnClipUI : MonoBehaviour
             }
             else
             {
-                GenerateCombination(assignedTileImageIndex, spriteOptions.Length, iconOptions.Length, out bgIndex, out iconIndex);
+                GenerateUniqueCombination(assignedTileImageIndex, spriteOptions.Length, iconOptions.Length, out bgIndex, out iconIndex);
 
                 btnImg.sprite = spriteOptions[bgIndex];
                 iconImg.sprite = iconOptions[iconIndex];
@@ -104,7 +115,7 @@ public class ProtoBtnClipUI : MonoBehaviour
         DOVirtual.DelayedCall(delay, () =>
         {
             btnImg.transform.localPosition = new Vector3(btnImg.transform.localPosition.x + distance, btnImg.transform.localPosition.y, btnImg.transform.localPosition.z);
-            slidingTween = btnImg.transform.DOLocalMoveX(0, 1f).SetEase(Ease.OutElastic);
+            slidingTween = btnImg.transform.DOLocalMoveX(0, 1f).SetEase(Ease.OutCirc);
         });
     }
 

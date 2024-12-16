@@ -53,7 +53,7 @@ public class ProtoGameControl : MonoBehaviour
 
         AudioClipControl.StartGame(level);
 
-        AudioClipControl.OnComplete += OnGameComplete;
+        ProtoAudioClipControl.OnComplete += OnGameComplete;
     }
 
     public void StartNextLevel()
@@ -125,7 +125,7 @@ public class ProtoGameControl : MonoBehaviour
 
     void Exit()
     {
-        AudioClipControl.OnComplete -= OnGameComplete;
+        ProtoAudioClipControl.OnComplete -= OnGameComplete;
 
         SceneManager.LoadScene("MainMenu");
     }

@@ -1,9 +1,12 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class CampaignProgressManager : MonoBehaviour
 {
     private CampaignProgress currentProgress;
+
+    public static event Action<CampaignProgress> OnLoad;
 
     // Load progress for a specific campaign
     public void LoadProgress(string campaignName)
@@ -20,6 +23,8 @@ public class CampaignProgressManager : MonoBehaviour
             currentProgress = new CampaignProgress(campaignName);
             Debug.Log($"No progress found for campaign: {campaignName}. Starting fresh.");
         }
+
+        OnLoad?.Invoke(currentProgress);
     }
 
     // Save current progress

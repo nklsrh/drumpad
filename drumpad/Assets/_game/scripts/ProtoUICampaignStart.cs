@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -20,6 +21,23 @@ public class ProtoUICampaignStart : MonoBehaviour
         btnPlay.onClick.AddListener(OnPlay);
 
         panelLivesBuy.gameObject.SetActive(false);
+
+        campaignLoader.LoadCampaign();
+    }
+
+    void OnEnable()
+    {
+        CampaignProgressManager.OnLoad += OnProgressLoaded;
+    }
+
+    void OnDisable()
+    {
+        CampaignProgressManager.OnLoad -= OnProgressLoaded;
+    }
+
+    private void OnProgressLoaded(CampaignProgress progress)
+    {
+        txtLevel.SetText(progress.currentLevelIndex+"");
     }
 
     private void OnPlay()

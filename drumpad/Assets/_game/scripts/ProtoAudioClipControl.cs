@@ -25,7 +25,7 @@ public class ProtoAudioClipControl : MonoBehaviour
 
     public event Action<ProtoAudioClipControl> OnStart;
     public event Action<ProtoAudioClipControl> OnMove;
-    public event Action<bool> OnComplete;
+    public static event Action<bool> OnComplete;
 
     public void StartGame(GameLevelData gameLevelData)
     {
@@ -61,9 +61,16 @@ public class ProtoAudioClipControl : MonoBehaviour
         SetButtons();
 
         // just in case some fuckwit set up a broken level that automatically wins (1 clip or some shit)
-        CheckCompleteAndFinish();
+        var isComplete = CheckCompleteAndFinish();
 
-        OnStart?.Invoke(this);
+        if (!isComplete)
+        {
+            OnStart?.Invoke(this);
+
+            yield return new WaitForSeconds(1.2f);
+
+            PlaySound(0);
+        }
     }
 
     private void SetLevelData()
@@ -162,7 +169,10 @@ public class ProtoAudioClipControl : MonoBehaviour
     {
         if (isPlaying)
         {
-            btns[indexPlaying].Stop();
+            for (int i = 0; i < btns.Length; i++)
+            {
+                btns[i].Stop();
+            }
         }
 
         btns[index].Play();
@@ -206,6 +216,8 @@ public class ProtoAudioClipControl : MonoBehaviour
     
     IEnumerator playAudioSequentially(AudioSource adSource, bool isCorrect)
     {
+        OnPlayTestSequence?.Invoke();
+
         yield return new WaitForSeconds(0.4f);
 
         //1.Loop through each AudioClip
