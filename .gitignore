@@ -77,3 +77,4 @@ crashlytics-build.properties
 /drumpad/.vscode
 /drumpad/UserSettings
 *.DS_Store
+/drumpad/Assets/Layer Lab/GUI Pro-CasualGame/Preview
