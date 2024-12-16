@@ -77,7 +77,7 @@ public class ProtoBtnClipUI : MonoBehaviour
         // btnImg.color = btn.isHovering ? Color.black : (btn.isClipPlaying ? Color.white : (btn.IsStarter ? colorStarter : colorStandard));
 
         // btnText.text = btn.isClipPlaying ? "||" : (btn.IsStarter ? "START>" : "");
-        iconImg.color = btn.isClipPlaying ? new Color(0.5f, 0.5f, 0.5f, 1) : Color.white;
+        iconImg.color = btn.isClipPlaying ? new Color(0.5f, 0.5f, 0.5f, 0.5f) : new Color(1, 1, 1, 0.5f);
 
         if (!slidingTween.IsActive())
         {
