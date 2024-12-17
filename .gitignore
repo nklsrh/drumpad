@@ -79,3 +79,4 @@ crashlytics-build.properties
 *.DS_Store
 /drumpad/Assets/Layer Lab/GUI Pro-CasualGame/Preview
 /drumpad/UserSettings/Layouts
+/drumpad/UserSettings
