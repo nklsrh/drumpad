@@ -23,7 +23,7 @@ public struct GameLevelData
         return clip;
     }
 
-    internal bool IsEmpty()
+    public bool IsEmpty()
     {
         return string.IsNullOrEmpty(songID);
     }

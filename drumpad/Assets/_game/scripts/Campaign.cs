@@ -7,7 +7,7 @@ public struct Campaign
     public string id;
     public List<string> levels; // List of level file names
 
-    internal bool IsEmpty()
+    public bool IsEmpty()
     {
         return string.IsNullOrEmpty(id);
     }

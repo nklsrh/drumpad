@@ -103,7 +103,6 @@ public class ProtoBtnClipPlay : MonoBehaviour
     public void Play()
     {
         PlaySnippet(gameLevelData.clips[Data.actualIndex].startingPoint, gameLevelData.clips[Data.actualIndex].duration);
-        // source.Play();
         isClipPlaying = true;
         if (OnClipPlayed != null)
         {

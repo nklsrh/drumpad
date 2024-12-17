@@ -175,6 +175,7 @@ public class ProtoAudioClipControl : MonoBehaviour
             }
         }
 
+        // PlayFrom(index);
         btns[index].Play();
         indexPlaying = index;
         isPlaying = true;
@@ -214,7 +215,7 @@ public class ProtoAudioClipControl : MonoBehaviour
         return false;
     }
     
-    IEnumerator playAudioSequentially(AudioSource adSource, bool isCorrect)
+    IEnumerator playAudioSequentially(bool isCorrect)
     {
         OnPlayTestSequence?.Invoke();
 
@@ -334,6 +335,32 @@ public class ProtoAudioClipControl : MonoBehaviour
         }
     }
 
+    public void PlayFrom(int index)
+    {
+        StartCoroutine(PlaySequence(index, sequence.Count - index));
+    }
+
+    IEnumerator PlaySequence(int start, int end)
+    {
+        // yield return new WaitForSeconds(0.4f);
+
+        //1.Loop through each AudioClip
+        for (int i = start; i < end; i++)
+        {
+            //2.Assign current AudioClip to audiosource
+            var play = btns[i];
+        
+            //3.Play Audio
+            play.Play();
+        
+            //4.Wait for it to finish playing
+            while (play.isClipPlaying)
+            {
+                yield return null;
+            }
+        }
+    }
+
     bool CheckCompleteAndFinish()
     {
         var isComplete = CheckComplete();
@@ -341,7 +368,7 @@ public class ProtoAudioClipControl : MonoBehaviour
 
         if (isComplete)
         {
-            StartCoroutine(playAudioSequentially(finishSource, true));
+            StartCoroutine(playAudioSequentially(true));
             return true;
         }
         return false;
