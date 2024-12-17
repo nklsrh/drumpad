@@ -40,6 +40,7 @@ public class ProtoBtnClipPlay : MonoBehaviour
     public static event Action<ProtoBtnClipPlay> OnClipGrabbed;
     public static event Action<ProtoBtnClipPlay> OnClipDropped;
     public static event Action<ProtoBtnClipPlay, bool> OnClipToggleShow;
+    public static event Action<ProtoBtnClipPlay, bool> OnClipToggleCorrect;
 
     void Start()
     {
@@ -184,6 +185,11 @@ public class ProtoBtnClipPlay : MonoBehaviour
     internal void Grab()
     {
         OnClipGrabbed?.Invoke(this);
+    }
+
+    internal void ShowToggleCorrect(bool v)
+    {
+        OnClipToggleCorrect?.Invoke(this, v);
     }
 }
 

@@ -101,11 +101,12 @@ public class LevelEditorWindow : EditorWindow
             for (int i = 0; i < currentLevelData.clips.Count; i++)
             {
                 EditorGUILayout.BeginHorizontal();
-              
+
                 var c = currentLevelData.clips[i];
                 c.startingPoint = (i>0? currentLevelData.clips[i - 1].startingPoint + currentLevelData.clips[i-1].duration : currentLevelData.startingPoint);
                 EditorGUILayout.LabelField("Starting Point: " +  c.startingPoint + "s");
                 c.duration = EditorGUILayout.FloatField("Duration", currentLevelData.clips[i].duration);
+                c.isCorrectByDefault = EditorGUILayout.Toggle("Lock", c.isCorrectByDefault);
                 currentLevelData.clips[i] = c;
 
                 if (GUILayout.Button("Play Audio"))

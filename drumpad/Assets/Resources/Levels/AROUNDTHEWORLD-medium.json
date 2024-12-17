@@ -5,7 +5,7 @@
         {
             "startingPoint": 0.0,
             "duration": 3.299999952316284,
-            "isCorrectByDefault": false
+            "isCorrectByDefault": true
         },
         {
             "startingPoint": 3.299999952316284,
@@ -25,7 +25,7 @@
         {
             "startingPoint": 13.199999809265137,
             "duration": 3.299999952316284,
-            "isCorrectByDefault": false
+            "isCorrectByDefault": true
         }
     ],
     "moves": 8,

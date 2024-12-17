@@ -5,12 +5,12 @@
         {
             "startingPoint": 0.0,
             "duration": 4.0,
-            "isCorrectByDefault": false
+            "isCorrectByDefault": true
         },
         {
             "startingPoint": 4.0,
             "duration": 2.0,
-            "isCorrectByDefault": false
+            "isCorrectByDefault": true
         },
         {
             "startingPoint": 6.0,
@@ -35,7 +35,7 @@
         {
             "startingPoint": 14.0,
             "duration": 2.0,
-            "isCorrectByDefault": false
+            "isCorrectByDefault": true
         },
         {
             "startingPoint": 16.0,

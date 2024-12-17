@@ -9,6 +9,8 @@ public class ProtoBtnClipUI : MonoBehaviour
 {
     public Image btnImg;
     public Image iconImg;
+    public Image inCorrectPositionImg;
+    public Image inWrongPositionImg;
     public TextMeshProUGUI btnText;
 
     public ProtoBtnClipPlay btn;
@@ -37,6 +39,7 @@ public class ProtoBtnClipUI : MonoBehaviour
         ProtoBtnClipPlay.OnClipGrabbed += OnGrabbed;
         ProtoBtnClipPlay.OnClipDropped += OnDropped;
         ProtoBtnClipPlay.OnClipToggleShow += OnToggleShow;
+        ProtoBtnClipPlay.OnClipToggleCorrect += OnClipToggleCorrect;
     }
 
     void OnDisable()
@@ -46,6 +49,7 @@ public class ProtoBtnClipUI : MonoBehaviour
         ProtoBtnClipPlay.OnClipGrabbed -= OnGrabbed;
         ProtoBtnClipPlay.OnClipDropped -= OnDropped;
         ProtoBtnClipPlay.OnClipToggleShow -= OnToggleShow;
+        ProtoBtnClipPlay.OnClipToggleCorrect -= OnClipToggleCorrect;
     }
 
     public static void GenerateUniqueCombination(
@@ -76,6 +80,11 @@ public class ProtoBtnClipUI : MonoBehaviour
                 btnImg.sprite = spriteStartBg;
                 iconImg.sprite = spriteStartIcon;
             }
+            else if (btn.Data.locked)
+            {
+                btnImg.sprite = spriteStartBg;
+                iconImg.sprite = spriteStartIcon;
+            }
             else
             {
                 GenerateUniqueCombination(btn.Data.actualIndex, spriteOptions.Length, iconOptions.Length, out bgIndex, out iconIndex);
@@ -96,10 +105,12 @@ public class ProtoBtnClipUI : MonoBehaviour
             {
                 var l = btnImg.transform.localPosition;
                 btnImg.transform.localPosition = Vector3.Lerp(l, new Vector3(40, l.y, l.z), 10 * Time.deltaTime);
+                btnImg.color = Color.black * 0.5f;
             }
             else
             {
                 btnImg.transform.localPosition = Vector3.zero;
+                btnImg.color = Color.white;
             }
         }
     }
@@ -141,6 +152,15 @@ public class ProtoBtnClipUI : MonoBehaviour
         if (play != this.btn) return;
 
         btnImg.gameObject.SetActive(shown);
+    }
+
+    private void OnClipToggleCorrect(ProtoBtnClipPlay play, bool shown)
+    {
+        if (play != this.btn) return;
+
+        var correct = play.Data.actualIndex == play.Data.index;
+        inCorrectPositionImg?.gameObject.SetActive(shown && correct);
+        inWrongPositionImg?.gameObject.SetActive(shown && !correct);
     }
 
     void Update()

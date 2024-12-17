@@ -80,7 +80,8 @@ public class ProtoGameControl : MonoBehaviour
 
     public void InsertBtnHere(ProtoBtnClipDragUI btn, ProtoBtnClipPlay insertBefore)
     {
-        AudioClipControl.InsertBtnHere(btn, insertBefore);
+        // AudioClipControl.InsertBtnHere(btn, insertBefore);
+        AudioClipControl.SwapBtnHere(btn, insertBefore);
     }
 
     private void OnContinueUpsell()
@@ -92,8 +93,7 @@ public class ProtoGameControl : MonoBehaviour
         }
         else
         {
-            // whattlolllll
-            CurrencyManager.Instance.ActivateUnlimitedMode(CurrencyManager.CURRENCY_LIVES, 300);
+            // show shop UI
         }
     }
 
@@ -116,6 +116,11 @@ public class ProtoGameControl : MonoBehaviour
         });
         panelLivesLost.gameObject.SetActive(true);
         panelLivesLost.Show();
+    }
+
+    public void UseHint()
+    {
+        AudioClipControl.ShowHintAllCorrect();
     }
 
     void Retry()

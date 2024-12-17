@@ -5,7 +5,7 @@
         {
             "startingPoint": 0.0,
             "duration": 2.0,
-            "isCorrectByDefault": false
+            "isCorrectByDefault": true
         },
         {
             "startingPoint": 2.0,

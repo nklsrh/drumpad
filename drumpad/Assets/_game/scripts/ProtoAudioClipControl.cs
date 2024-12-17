@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ProtoAudioClipControl : MonoBehaviour
@@ -110,22 +111,60 @@ public class ProtoAudioClipControl : MonoBehaviour
 
     int[] RandomiseClips()
     {
-        // make new int that randomises values in clips
-        int[] randomIndex = new int[gameLevelData.clips.Count];
-        for (int i = 0; i < randomIndex.Length; i++)
+        return ShuffleSelectedItems();
+        // // make new int that randomises values in clips
+        // List<int> randomIndex = new List<int>();
+        // for (int i = 0; i < gameLevelData.clips.Count; i++)
+        // {
+        //     if (!gameLevelData.clips[i].isCorrectByDefault)
+        //     {
+        //         randomIndex[i] = i;
+        //     }
+        // }
+
+        // // dont randomise the first tile
+        // for (int i = 0; i < randomIndex.Length; i++)
+        // {
+        //     int temp = randomIndex[i];
+        //     int randomIndexValue = UnityEngine.Random.Range(i, randomIndex.Length);
+        //     randomIndex[i] = randomIndex[randomIndexValue];
+        //     randomIndex[randomIndexValue] = temp;
+        // }
+        // return randomIndex;
+    }
+    public int[] ShuffleSelectedItems()
+    {
+        List<int> numbers = new List<int>();
+
+        // Extract the elements to be shuffled based on the boolean flags
+        List<int> itemsToShuffle = new List<int>();
+        for (int i = 0; i < gameLevelData.clips.Count; i++)
         {
-            randomIndex[i] = i;
+            numbers.Add(i);
+            if (!gameLevelData.clips[i].isCorrectByDefault)
+            {
+                itemsToShuffle.Add(i);
+            }
         }
 
-        // dont randomise the first tile
-        for (int i = 1; i < randomIndex.Length; i++)
+        // Shuffle the extracted items
+        for (int i = 0; i < itemsToShuffle.Count; i++)
         {
-            int temp = randomIndex[i];
-            int randomIndexValue = UnityEngine.Random.Range(i, randomIndex.Length);
-            randomIndex[i] = randomIndex[randomIndexValue];
-            randomIndex[randomIndexValue] = temp;
+            int randomIndex = UnityEngine.Random.Range(i, itemsToShuffle.Count);
+            (itemsToShuffle[i], itemsToShuffle[randomIndex]) = (itemsToShuffle[randomIndex], itemsToShuffle[i]);
         }
-        return randomIndex;
+
+        // Put the shuffled items back into the original list
+        int shuffleIndex = 0;
+        for (int i = 0; i < gameLevelData.clips.Count; i++)
+        {
+            if (!gameLevelData.clips[i].isCorrectByDefault)
+            {
+                numbers[i] = itemsToShuffle[shuffleIndex];
+                shuffleIndex++;
+            }
+        }
+        return numbers.ToArray();
     }
 
     private void LoadLevelData(GameLevelData gameLevelData)
@@ -189,7 +228,7 @@ public class ProtoAudioClipControl : MonoBehaviour
         sequence.Add(new StructBtnData()
         {
             index = sequence.Count,
-            locked = shouldFreezeIfFirst && sequence.Count == 0,
+            locked = (shouldFreezeIfFirst && sequence.Count == 0) || gameLevelData.clips[sequence.Count].isCorrectByDefault,
             actualIndex = randomIndex,
             assignedTileImageIndex = UnityEngine.Random.Range(0,192)
         });
@@ -266,6 +305,37 @@ public class ProtoAudioClipControl : MonoBehaviour
         }
     }
 
+    internal void SwapBtnHere(ProtoBtnClipDragUI btn, ProtoBtnClipPlay insertBefore)
+    {
+        var newIndex = insertBefore.Data.index;
+        var oldItemIndex = btn.btn.Data.index;
+        if (newIndex == oldItemIndex) return;
+
+        var temp = sequence[newIndex];
+        sequence[newIndex] = sequence[oldItemIndex];
+        sequence[oldItemIndex] = temp;
+
+        // update the index of each item in the sequence
+        for (int i = 0; i < sequence.Count; i++)
+        {
+            var s = sequence[i];
+            s.index = i;
+            sequence[i] = s;
+        }
+        
+        // then populate the same butttons with the new order
+        SetButtons();
+
+        btns[newIndex].Drop();
+        btns[oldItemIndex].SlideIn(0, -120);
+
+        bool isFinished = CheckCompleteAndFinish();
+        if (!isFinished)
+        {
+            AddMove();
+        }
+    }
+
     public void InsertBtnHere(ProtoBtnClipDragUI btn, ProtoBtnClipPlay insertBefore)
     {
         var newIndex = insertBefore.Data.index;
@@ -309,6 +379,7 @@ public class ProtoAudioClipControl : MonoBehaviour
         {
             OnMove(this);
         }
+        ClearAllHints();
         CheckMovesOver();
     }
 
@@ -374,5 +445,21 @@ public class ProtoAudioClipControl : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    internal void ShowHintAllCorrect()
+    {
+        for (int i = 0; i < sequence.Count; i++)
+        {
+            btns[i].ShowToggleCorrect(true);
+        }
+    }
+
+    public void ClearAllHints()
+    {
+        for (int i = 0; i < sequence.Count; i++)
+        {
+            btns[i].ShowToggleCorrect(false);
+        }
     }
 }
