@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +7,7 @@ public class ProtoBtnClipPlay : MonoBehaviour
 {
     public AudioSource source;
     public Button btn;
+    public Tween tween;
 
     public bool isClipPlaying = false;
 
@@ -137,23 +139,20 @@ public class ProtoBtnClipPlay : MonoBehaviour
             return;
         }
 
-        StartCoroutine(PlaySnippetCoroutine(startingPoint, duration));
-    }
-
-    private System.Collections.IEnumerator PlaySnippetCoroutine(float startingPoint, float duration)
-    {
         source.time = startingPoint;
         source.Play();
 
-        yield return new WaitForSeconds(duration);
-
-        Stop();
+        tween = DOVirtual.DelayedCall(duration, Stop);
     }
 
     public void Stop()
     {
         source.Stop();
         isClipPlaying = false;
+        if (tween != null && tween.IsPlaying())
+        {
+            tween.Kill();
+        }
     }
     
     void Update()

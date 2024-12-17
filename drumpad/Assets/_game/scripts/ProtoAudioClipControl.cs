@@ -42,9 +42,10 @@ public class ProtoAudioClipControl : MonoBehaviour
         yield return new WaitForSeconds(0.01f);
         
         var randomIndex = RandomiseClips();
-        int loops = 1000;
+        int loops = 10000;
         while (CheckRandomness(randomIndex) && loops > 0)
         {
+            Debug.Log("RANDOMNESS NOT RANDOM ENOUGH");
             loops--;
             randomIndex = RandomiseClips();
         }
@@ -225,13 +226,14 @@ public class ProtoAudioClipControl : MonoBehaviour
         for (int i = 0; i < sequence.Count; i++)
         {
             //2.Assign current AudioClip to audiosource
-            var play = btns[i];
+            // var play = btns[i];
         
             //3.Play Audio
-            play.Play();
+            // play.Play();
+            PlaySound(i);
         
             //4.Wait for it to finish playing
-            while (play.isClipPlaying)
+            while (btns[i].isClipPlaying)
             {
                 yield return null;
             }
