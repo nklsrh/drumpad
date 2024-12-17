@@ -12,6 +12,7 @@ public class ProtoUICampaignStart : MonoBehaviour
     public Button btnPlay;
     public TextMeshProUGUI txtLevel;
 
+    public TextMeshProUGUI[] txtLevelFuture;
     public ProtoUIPanelLivesBuy panelLivesBuy;
 
     public CampaignLoader campaignLoader;
@@ -38,6 +39,11 @@ public class ProtoUICampaignStart : MonoBehaviour
     private void OnProgressLoaded(CampaignProgress progress)
     {
         txtLevel.SetText(progress.currentLevelIndex+"");
+
+        for (int i = 0; i < txtLevelFuture.Length; i++)
+        {
+            txtLevelFuture[i].SetText(progress.currentLevelIndex + i + 1 + "");
+        }
     }
 
     private void OnPlay()

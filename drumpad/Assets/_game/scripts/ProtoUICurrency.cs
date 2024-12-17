@@ -6,6 +6,7 @@ public class ProtoUICurrency : MonoBehaviour
 {
     public string currencyName; // The currency to track (e.g., "Coins", "Lives")
     public TextMeshProUGUI currencyText; // The main text field to show the currency value
+    public GameObject regenBG; //  bg for regen
     public TextMeshProUGUI regenerationText; // Optional text field for regeneration time
 
     private void OnEnable()
@@ -39,7 +40,7 @@ public class ProtoUICurrency : MonoBehaviour
             {
                 if (regenerationText != null)
                 {
-                    regenerationText.gameObject.SetActive(true);
+                    regenBG?.SetActive(true);
                     var timeLeft = CurrencyManager.Instance.GetTimeUntilUnlimitedModeEnds(currencyName);
                     regenerationText.text = $"Ends in: {timeLeft.Minutes:D2}:{timeLeft.Seconds:D2}";
                 }
@@ -49,18 +50,18 @@ public class ProtoUICurrency : MonoBehaviour
                 var timeLeft = CurrencyManager.Instance.GetTimeUntilNextRegeneration(currencyName);
                 if (timeLeft.TotalSeconds > 0)
                 {
-                    regenerationText.gameObject.SetActive(true);
+                    regenBG?.SetActive(true);
                     regenerationText.text = $"Next in: {timeLeft.Minutes:D2}:{timeLeft.Seconds:D2}";
                 }
                 else
                 {
-                    regenerationText.gameObject.SetActive(false);
+                    regenBG?.SetActive(false);
                 }
             }
         }
-        else if (regenerationText != null)
+        else if (regenBG != null)
         {
-            regenerationText.gameObject.SetActive(false);
+            regenBG.SetActive(false);
         }
     }
 

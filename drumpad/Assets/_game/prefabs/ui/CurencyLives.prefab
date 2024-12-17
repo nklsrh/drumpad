@@ -30,7 +30,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6737086770847552368}
   m_Father: {fileID: 8360228530603482233}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
@@ -372,11 +373,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8360228530603482233}
+  m_Father: {fileID: 4018547881220214584}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 106.27156, y: -93.2274}
+  m_AnchoredPosition: {x: 72.43904, y: -20.166214}
   m_SizeDelta: {x: 123.63224, y: 31.093}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2253882619236752480
@@ -925,7 +926,6 @@ RectTransform:
   m_Children:
   - {fileID: 5687252730348232447}
   - {fileID: 4018547881220214584}
-  - {fileID: 6737086770847552368}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
@@ -985,6 +985,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currencyName: coins
   currencyText: {fileID: 7729100662624365125}
+  regenBG: {fileID: 597704807604791793}
   regenerationText: {fileID: 6870594452792875080}
 --- !u!1 &3671961411374395895
 GameObject:
