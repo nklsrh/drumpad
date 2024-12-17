@@ -26,7 +26,7 @@ public class CampaignLoader : MonoBehaviour
 
     private Campaign currentCampaign;
     private CampaignProgressManager progressManager;
-    private CampaignProgressManager ProgressManager
+    public CampaignProgressManager ProgressManager
     {
         get
         {
@@ -39,19 +39,21 @@ public class CampaignLoader : MonoBehaviour
         }
     }
 
-    public void LoadCampaign()
+    public void LoadCampaign(string overrideID = "")
     {
         if (isDebug)
         {
             Debug.LogWarning("PLAYING IN DEBUG MODE - TESTING LEVEL " + debugOverrideLevelName + "! Go to CampaignLoader in scene and turn it off if not intentional!");
             return;  
-        } 
+        }
+
+        var fileName = string.IsNullOrEmpty(overrideID) ? campaignFileName : overrideID;
 
         // Load campaign JSON from Resources
-        TextAsset campaignJson = Resources.Load<TextAsset>($"Campaigns/{campaignFileName}");
+        TextAsset campaignJson = Resources.Load<TextAsset>($"Campaigns/{fileName}");
         if (campaignJson == null)
         {
-            Debug.LogError($"Campaign JSON file not found in Resources: {campaignFileName}");
+            Debug.LogError($"Campaign JSON file not found in Resources: {fileName}");
             return;
         }
 
@@ -60,7 +62,7 @@ public class CampaignLoader : MonoBehaviour
         Debug.Log($"Campaign Loaded: {currentCampaign.levels.Count} levels");
 
         // Load player progress for this campaign
-        ProgressManager.LoadProgress(campaignFileName);
+        ProgressManager.LoadProgress(fileName);
     }
 
     public GameLevelData StartNextLevel()

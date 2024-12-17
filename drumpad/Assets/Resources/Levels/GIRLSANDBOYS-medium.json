@@ -1,0 +1,39 @@
+{
+    "songID": "Girls & Boys - Blur (15s)",
+    "startingPoint": 0.0,
+    "clips": [
+        {
+            "startingPoint": 0.0,
+            "duration": 2.5,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 2.5,
+            "duration": 2.5,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 5.0,
+            "duration": 2.5,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 7.5,
+            "duration": 2.5,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 10.0,
+            "duration": 2.5,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 12.5,
+            "duration": 2.5,
+            "isCorrectByDefault": false
+        }
+    ],
+    "moves": 8,
+    "rewardCoins": 0,
+    "gameType": 0
+}

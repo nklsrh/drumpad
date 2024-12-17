@@ -7,8 +7,7 @@ using UnityEngine;
 
 public class ProtoUIGameplay : MonoBehaviour
 {
-    public TextMeshProUGUI txtLevelText;
-    public TextMeshProUGUI txtLevelText2;
+    public TextMeshProUGUI[] txtLevelText;
 
     public GameObject playtestOverlay;
 
@@ -50,13 +49,9 @@ public class ProtoUIGameplay : MonoBehaviour
 
     private void OnLoad(CampaignProgress progress)
     {
-        if (txtLevelText)
+        foreach (var t in txtLevelText)
         {
-            txtLevelText.SetText("Level " + progress.currentLevelIndex);
-        }
-        if (txtLevelText2)
-        {
-            txtLevelText2.SetText("Level " + progress.currentLevelIndex);
+            t?.SetText("Level " + progress.GetCurrentLevelIndexString());
         }
     }
 }

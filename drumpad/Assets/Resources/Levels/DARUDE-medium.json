@@ -1,0 +1,39 @@
+{
+    "songID": "Sandstorm - Darude (14s)",
+    "startingPoint": 0.0,
+    "clips": [
+        {
+            "startingPoint": 0.0,
+            "duration": 1.5,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 1.5,
+            "duration": 2.5,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 4.0,
+            "duration": 2.5,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 6.5,
+            "duration": 2.5,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 9.0,
+            "duration": 2.5,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 11.5,
+            "duration": 2.5,
+            "isCorrectByDefault": false
+        }
+    ],
+    "moves": 8,
+    "rewardCoins": 0,
+    "gameType": 0
+}

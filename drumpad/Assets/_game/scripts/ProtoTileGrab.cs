@@ -52,9 +52,9 @@ public class ProtoTileGrab : MonoBehaviour
         if (btn)
         {
             btn.btn.isHovering = false;
+            btn.btn.ShowHide(true);
         }
 
-        btn.btn.ShowHide(true);
         btn = null;
         hoveringBtn = null;
     }

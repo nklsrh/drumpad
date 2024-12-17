@@ -131,9 +131,9 @@ public class ProtoBtnClipPlay : MonoBehaviour
             return;
         }
 
-        if (duration <= 0 || startingPoint + duration > source.clip.length)
+        if (duration <= 0 || startingPoint + duration > source.clip.length + 0.0001)
         {
-            Debug.LogError("Invalid duration specified.");
+            Debug.LogError($"Invalid duration specified. {startingPoint} + {duration} vs {source.clip.length}");
             return;
         }
 

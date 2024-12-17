@@ -17,13 +17,18 @@ public class ProtoUICampaignStart : MonoBehaviour
 
     public CampaignLoader campaignLoader;
 
+    public string campaignID = "campaign-1";
+    public static StructGameParams StructGameParams;
+
     void Start()
     {
         btnPlay.onClick.AddListener(OnPlay);
 
         panelLivesBuy.gameObject.SetActive(false);
 
-        campaignLoader.LoadCampaign();
+        StructGameParams.campaignID = campaignID;
+
+        campaignLoader.LoadCampaign(campaignID);
     }
 
     void OnEnable()
@@ -38,11 +43,11 @@ public class ProtoUICampaignStart : MonoBehaviour
 
     private void OnProgressLoaded(CampaignProgress progress)
     {
-        txtLevel.SetText(progress.currentLevelIndex+"");
+        txtLevel.SetText(progress.GetCurrentLevelIndexString());
 
         for (int i = 0; i < txtLevelFuture.Length; i++)
         {
-            txtLevelFuture[i].SetText(progress.currentLevelIndex + i + 1 + "");
+            txtLevelFuture[i].SetText((progress.currentLevelIndex + i + 2) + "");
         }
     }
 
@@ -66,4 +71,10 @@ public class ProtoUICampaignStart : MonoBehaviour
             panelLivesBuy.gameObject.SetActive(true);
         }
     }
+}
+
+[Serializable]
+public struct StructGameParams
+{
+    public string campaignID;
 }

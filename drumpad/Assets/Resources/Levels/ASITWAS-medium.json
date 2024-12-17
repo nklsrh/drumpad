@@ -1,0 +1,49 @@
+{
+    "songID": "As It Was - Harry Styles (20s)",
+    "startingPoint": 0.0,
+    "clips": [
+        {
+            "startingPoint": 0.0,
+            "duration": 4.0,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 4.0,
+            "duration": 2.0,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 6.0,
+            "duration": 2.0,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 8.0,
+            "duration": 2.0,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 10.0,
+            "duration": 2.0,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 12.0,
+            "duration": 4.0,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 16.0,
+            "duration": 2.0,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 18.0,
+            "duration": 2.0,
+            "isCorrectByDefault": false
+        }
+    ],
+    "moves": 8,
+    "rewardCoins": 0,
+    "gameType": 0
+}

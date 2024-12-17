@@ -37,7 +37,8 @@ public class ProtoGameControl : MonoBehaviour
 
     public GameLevelData LoadGameLevelDataFromProgress()
     {
-        campaignLoader.LoadCampaign();
+        var campaginOverrideID = ProtoUICampaignStart.StructGameParams.campaignID;
+        campaignLoader.LoadCampaign(campaginOverrideID);
         var level = campaignLoader.StartNextLevel();
 
         if (level.IsEmpty())

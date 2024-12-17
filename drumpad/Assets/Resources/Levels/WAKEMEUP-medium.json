@@ -1,0 +1,29 @@
+{
+    "songID": "Wake Me Up - Avicii (16s)",
+    "startingPoint": 0.0,
+    "clips": [
+        {
+            "startingPoint": 0.0,
+            "duration": 4.0,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 4.0,
+            "duration": 4.0,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 8.0,
+            "duration": 4.0,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 12.0,
+            "duration": 5.0,
+            "isCorrectByDefault": false
+        }
+    ],
+    "moves": 8,
+    "rewardCoins": 0,
+    "gameType": 0
+}

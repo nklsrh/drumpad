@@ -35,4 +35,5 @@ public struct GameClipData
     [HideInInspector]
     public float startingPoint;
     public float duration;
+    public bool isCorrectByDefault;
 }

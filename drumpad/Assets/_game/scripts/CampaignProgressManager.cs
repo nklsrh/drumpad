@@ -4,7 +4,7 @@ using System;
 
 public class CampaignProgressManager : MonoBehaviour
 {
-    private CampaignProgress currentProgress;
+    public CampaignProgress currentProgress;
 
     public static event Action<CampaignProgress> OnLoad;
 

@@ -1,0 +1,44 @@
+{
+    "songID": "MONTERO - Lil Nas X (16s)",
+    "startingPoint": 0.0,
+    "clips": [
+        {
+            "startingPoint": 0.0,
+            "duration": 2.0,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 2.0,
+            "duration": 2.0,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 4.0,
+            "duration": 2.0,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 6.0,
+            "duration": 2.0,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 8.0,
+            "duration": 3.0,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 11.0,
+            "duration": 3.0,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 14.0,
+            "duration": 2.0,
+            "isCorrectByDefault": false
+        }
+    ],
+    "moves": 8,
+    "rewardCoins": 0,
+    "gameType": 0
+}

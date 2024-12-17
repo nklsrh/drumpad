@@ -13,4 +13,9 @@ public class CampaignProgress
         currentLevelIndex = 0;
         completedLevels = new List<string>();
     }
+
+    internal string GetCurrentLevelIndexString()
+    {
+        return (int)(currentLevelIndex + 1)+"";
+    }
 }

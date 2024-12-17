@@ -1,0 +1,39 @@
+{
+    "songID": "Espresso - Sabrina Carpenter (19s)",
+    "startingPoint": 0.0,
+    "clips": [
+        {
+            "startingPoint": 0.0,
+            "duration": 3.1600000858306886,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 3.1600000858306886,
+            "duration": 3.1600000858306886,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 6.320000171661377,
+            "duration": 3.1600000858306886,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 9.480000495910645,
+            "duration": 3.1600000858306886,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 12.640000343322754,
+            "duration": 3.200000047683716,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 15.84000015258789,
+            "duration": 3.0,
+            "isCorrectByDefault": false
+        }
+    ],
+    "moves": 8,
+    "rewardCoins": 0,
+    "gameType": 0
+}

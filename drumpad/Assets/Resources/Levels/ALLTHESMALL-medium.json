@@ -1,0 +1,39 @@
+{
+    "songID": "All The Small Things - Blink 182 (13s)",
+    "startingPoint": 0.0,
+    "clips": [
+        {
+            "startingPoint": 0.0,
+            "duration": 2.1600000858306886,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 2.1600000858306886,
+            "duration": 2.1600000858306886,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 4.320000171661377,
+            "duration": 2.1600000858306886,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 6.4800004959106449,
+            "duration": 2.1600000858306886,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 8.640000343322754,
+            "duration": 2.1600000858306886,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 10.800000190734864,
+            "duration": 2.200000047683716,
+            "isCorrectByDefault": false
+        }
+    ],
+    "moves": 8,
+    "rewardCoins": 0,
+    "gameType": 0
+}

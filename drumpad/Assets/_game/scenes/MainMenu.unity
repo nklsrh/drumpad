@@ -1363,6 +1363,7 @@ MonoBehaviour:
   - {fileID: 1210835196}
   panelLivesBuy: {fileID: 617215604}
   campaignLoader: {fileID: 834152023}
+  campaignID: campaign-tom
 --- !u!114 &834152023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1687,6 +1688,10 @@ PrefabInstance:
     - target: {fileID: 3613719259301264377, guid: 25d48ed21df8d492e9f6165eac2bdc07, type: 3}
       propertyPath: m_Name
       value: CurencyLives
+      objectReference: {fileID: 0}
+    - target: {fileID: 4642673957485440880, guid: 25d48ed21df8d492e9f6165eac2bdc07, type: 3}
+      propertyPath: currencyName
+      value: lives
       objectReference: {fileID: 0}
     - target: {fileID: 5449579043656277320, guid: 25d48ed21df8d492e9f6165eac2bdc07, type: 3}
       propertyPath: m_Sprite

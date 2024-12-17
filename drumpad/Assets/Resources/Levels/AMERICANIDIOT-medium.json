@@ -1,0 +1,54 @@
+{
+    "songID": "American Idiot - Green Day (20s)",
+    "startingPoint": 0.0,
+    "clips": [
+        {
+            "startingPoint": 0.0,
+            "duration": 2.2200000286102297,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 2.2200000286102297,
+            "duration": 2.2200000286102297,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 4.440000057220459,
+            "duration": 2.2200000286102297,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 6.659999847412109,
+            "duration": 2.2200000286102297,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 8.880000114440918,
+            "duration": 2.2200000286102297,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 11.100000381469727,
+            "duration": 2.2200000286102297,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 13.320000648498536,
+            "duration": 2.2200000286102297,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 15.540000915527344,
+            "duration": 2.2200000286102297,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 17.760000228881837,
+            "duration": 2.2699999809265138,
+            "isCorrectByDefault": false
+        }
+    ],
+    "moves": 8,
+    "rewardCoins": 0,
+    "gameType": 0
+}

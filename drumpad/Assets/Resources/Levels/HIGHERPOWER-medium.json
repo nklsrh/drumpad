@@ -1,0 +1,39 @@
+{
+    "songID": "Higher Power - Coldplay (18s)",
+    "startingPoint": 0.0,
+    "clips": [
+        {
+            "startingPoint": 0.0,
+            "duration": 3.0,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 3.0,
+            "duration": 3.0,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 6.0,
+            "duration": 3.0,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 9.0,
+            "duration": 3.0,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 12.0,
+            "duration": 3.0,
+            "isCorrectByDefault": false
+        },
+        {
+            "startingPoint": 15.0,
+            "duration": 3.0,
+            "isCorrectByDefault": false
+        }
+    ],
+    "moves": 8,
+    "rewardCoins": 0,
+    "gameType": 0
+}

@@ -749,6 +749,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameControl: {fileID: 1111451046}
+  txtLevel: {fileID: 1331301438}
   ani: {fileID: 178302244}
 --- !u!1 &190349596
 GameObject:
@@ -4327,16 +4328,22 @@ MonoBehaviour:
     clips:
     - startingPoint: 0
       duration: 1
+      isCorrectByDefault: 0
     - startingPoint: 0
       duration: 2
+      isCorrectByDefault: 0
     - startingPoint: 0
       duration: 1
+      isCorrectByDefault: 0
     - startingPoint: 0
       duration: 2
+      isCorrectByDefault: 0
     - startingPoint: 0
       duration: 1.5
+      isCorrectByDefault: 0
     - startingPoint: 0
       duration: 2
+      isCorrectByDefault: 0
     moves: 0
     rewardCoins: 0
     gameType: 0
@@ -5048,7 +5055,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &984704622
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5306,8 +5313,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54b7f67b1482e45fcba8fcda8509d50e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  txtLevelText: {fileID: 1331301438}
-  txtLevelText2: {fileID: 1107828831}
+  txtLevelText:
+  - {fileID: 1107828831}
+  - {fileID: 1331301438}
+  - {fileID: 704569546}
   playtestOverlay: {fileID: 1746010690}
 --- !u!1 &1020286654
 GameObject:
@@ -6483,7 +6492,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDebug: 0
   debugOverrideLevelName: feelgoodinc-medium-1
-  campaignFileName: campaign-1
+  campaignFileName: campaign-tom
 --- !u!114 &1111451051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6496,6 +6505,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2891daf4c8a243888793ad03951a18a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentProgress:
+    campaignName: 
+    currentLevelIndex: 0
+    completedLevels: []
 --- !u!1 &1125496735
 GameObject:
   m_ObjectHideFlags: 0
@@ -11500,6 +11513,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -342.45
       objectReference: {fileID: 0}
+    - target: {fileID: 5120753096125362710, guid: 26183ec9be711494c8f9006288a44a1c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12586,6 +12603,10 @@ PrefabInstance:
     - target: {fileID: 4538865572948165621, guid: 25d48ed21df8d492e9f6165eac2bdc07, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4642673957485440880, guid: 25d48ed21df8d492e9f6165eac2bdc07, type: 3}
+      propertyPath: currencyName
+      value: lives
       objectReference: {fileID: 0}
     - target: {fileID: 4755690976680248901, guid: 25d48ed21df8d492e9f6165eac2bdc07, type: 3}
       propertyPath: m_AnchorMax.y
