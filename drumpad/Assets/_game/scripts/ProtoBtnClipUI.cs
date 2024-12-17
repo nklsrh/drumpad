@@ -78,7 +78,7 @@ public class ProtoBtnClipUI : MonoBehaviour
             }
             else
             {
-                GenerateUniqueCombination(assignedTileImageIndex, spriteOptions.Length, iconOptions.Length, out bgIndex, out iconIndex);
+                GenerateUniqueCombination(btn.Data.actualIndex, spriteOptions.Length, iconOptions.Length, out bgIndex, out iconIndex);
 
                 btnImg.sprite = spriteOptions[bgIndex];
                 iconImg.sprite = iconOptions[iconIndex];
